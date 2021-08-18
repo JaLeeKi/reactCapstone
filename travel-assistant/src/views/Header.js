@@ -1,12 +1,17 @@
 import React from "react";
 
-const Header = () => {
+export default function Header() {
   return (
     <div>
-      <button>My Account</button>
-      <button>Sign In/Sign Up</button>
+      <a href="/">
+        <button>Home</button>
+      </a>
+      <a href="/myaccount">
+        <button>My Account</button>
+      </a>
+      <a href="/signin">
+        <button>Sign In</button>
+      </a>
     </div>
   );
-};
-
-export default Header;
+}
