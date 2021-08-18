@@ -1,0 +1,3 @@
+SAVE FOR LATER:
+
+https://www.npmjs.com/package/sharp
