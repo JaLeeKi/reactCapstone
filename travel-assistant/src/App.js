@@ -8,6 +8,9 @@ import MyAccount from "./views/MyAccount";
 import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
 import Footer from "./views/Footer";
+import Flights from "./views/Flights";
+import CarRental from "./views/CarRental";
+import Final from "./views/Final";
 
 export default function App() {
   return (
@@ -30,6 +33,15 @@ export default function App() {
           </Route>
           <Route path="/signup">
             <SignUp />
+          </Route>
+          <Route path="/flights">
+            <Flights />
+          </Route>
+          <Route path="/carrental">
+            <CarRental />
+          </Route>
+          <Route path="/final">
+            <Final />
           </Route>
         </Switch>
       </div>

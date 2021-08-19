@@ -25,17 +25,19 @@ const onSubmit = async () => {
 export default function LocationForm() {
   return (
     <div>
-      <form action="/hotel" onSubmit={onSubmit}>
+      <form action="/hotel" onSubmit={onSubmit} method="get">
         <input type="text" placeholder="Where Would You Like To Go?"></input>
-        <p>
+        <div>
           <label for="guests">How Many Guests?</label>
+          <br />
           <input type="number" class="guests"></input>
-        </p>
-        <p>
+        </div>
+        <div>
           <label for="date">When Would You Like To Travel?</label>
+          <br />
           <input type="date" class="date"></input>
           <input type="date"></input>
-        </p>
+        </div>
         <input type="submit" value="Submit" />
       </form>
     </div>
