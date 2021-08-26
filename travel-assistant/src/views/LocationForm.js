@@ -1,22 +1,11 @@
 import React from "react";
+import { RegionDropdown } from "react-country-region-selector";
 
-export default function LocationForm({
-  formAnswers,
-  handleChange,
-  handleSubmit,
-}) {
-  // console.log(formAnswers);
+export default function LocationForm({ handleChange, handleSubmit, formData }) {
   return (
     <div>
-      <form
-        action="/hotel"
-        onSubmit={() => {
-          console.log(formAnswers);
-          handleSubmit(formAnswers.city);
-        }}
-      >
+      <form action="/hotellist" onSubmit={handleSubmit}>
         <input
-          value={formAnswers.city}
           className="city"
           name="city"
           onChange={handleChange}
@@ -24,12 +13,18 @@ export default function LocationForm({
           placeholder="Where Would You Like To Go?"
         ></input>
         <div>
+          <RegionDropdown
+            country="United States"
+            onChange={handleChange}
+            value={formData.region}
+          />
+        </div>
+        <div>
           <label for="guests">How Many Guests?</label>
           <br />
           <input
             type="number"
             onChange={handleChange}
-            value={formAnswers.guests}
             className="guests"
             name="guests"
           ></input>
@@ -40,7 +35,6 @@ export default function LocationForm({
           <input
             type="date"
             onChange={handleChange}
-            value={formAnswers.startDate}
             className="startDate"
             name="startDate"
           ></input>
@@ -49,13 +43,11 @@ export default function LocationForm({
             className="endDate"
             name="endDate"
             onChange={handleChange}
-            value={formAnswers.endDate}
           ></input>
         </div>
-        <input type="submit" value="Submit" />
-      </form>
-      <form>
-        <h1>{formAnswers === undefined ? formAnswers : null}</h1>
+        <a href="/hotellist">
+          <input type="submit" value="Submit" />
+        </a>
       </form>
     </div>
   );

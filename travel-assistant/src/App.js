@@ -4,7 +4,7 @@ import axios from "axios";
 
 import Header from "./views/Header";
 import LocationForm from "./views/LocationForm";
-import Hotel from "./views/Hotel";
+import HotelList from "./views/HotelList";
 import MyAccount from "./views/MyAccount";
 import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
@@ -17,60 +17,62 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formAnswers: {
-        city: "",
-        guests: 1,
-        startDate: "2021-08-20",
-        endDate: "2021-08-21",
-      },
-      hotel: {},
+      city: "",
+      guests: 1,
+      startDate: "YYYY-MM-DD",
+      endDate: "YYYY-MM-DD",
+      region: "",
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.selectRegion = this.selectRegion.bind(this);
   }
 
-  componentDidMount() {
-    this.formAnswers = () => {
-      this.handleChange();
-    };
+  handleSubmit(e) {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({ [name]: value });
+    this.getCity();
+    console.log(this.state);
   }
 
-  handleChange = (e) => {
-    e.preventDefault();
-    const { value, className } = e.target;
-    console.log(value);
-    console.log(className);
+  getCity() {
+    const city = `${this.state.city}, ${this.state.region}`;
 
-    this.setState((state, props) => ({
-      formAnswers: state.city + props.searchCity,
-    }));
-    console.log(this.state);
-  };
-
-  handleSubmit = (searchCity) => {
-    console.log(this.state);
     const options = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/hotels/locations",
-      params: { name: searchCity },
+      params: { name: city },
       headers: {
         "x-rapidapi-host": "priceline-com-provider.p.rapidapi.com",
-        "x-rapidapi-key": "a249296ae8msh4ba546f035043f1p1e7ae7jsn460dcaf9557d",
+        "x-rapidapi-key": "f6aff1c7f5msh8c12a345969f9efp10a7a7jsn2feb1f489273",
       },
     };
 
-    console.log(options.params);
+    axios.request(options).then((res) => {
+      console.log(res.data);
+    });
+  }
 
-    axios
-      .request(options)
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
+  selectRegion(val) {
+    this.setState({ region: val });
+  }
+
+  handleChange(e) {
+    if (typeof e === "string") {
+      this.selectRegion(e);
+    } else {
+      e.preventDefault();
+      const target = e.target;
+
+      const value = target.value;
+      const name = target.name;
+
+      this.setState({ [name]: value });
+    }
+  }
 
   render() {
     return (
@@ -80,18 +82,15 @@ export default class App extends Component {
             <Route exact path="/">
               <Header />
               <LocationForm
-                formAnswers={this.state.formAnswers}
-                hotelList={this.state.hotel}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
+                formData={this.state}
+                selectRegion={this.selectRegion}
               />
               <Footer />
             </Route>
-            <Route path="/hotel">
-              <Hotel
-                formAnswers={this.state.formAnswers}
-                hotelList={this.state.hotel}
-              />
+            <Route path="/hotellist">
+              <HotelList />
             </Route>
             <Route path="/myaccount">
               <MyAccount />
