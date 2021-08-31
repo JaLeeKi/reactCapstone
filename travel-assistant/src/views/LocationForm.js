@@ -4,7 +4,7 @@ import { RegionDropdown } from "react-country-region-selector";
 export default function LocationForm({ handleChange, handleSubmit, formData }) {
   return (
     <div>
-      <form action="/hotellist" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input
           className="city"
           name="city"

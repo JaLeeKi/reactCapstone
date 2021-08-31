@@ -28,32 +28,38 @@ export default class App extends Component {
     this.selectRegion = this.selectRegion.bind(this);
   }
 
+  componentDidMount() {
+    this.callBackendAPI()
+      .then((res) => this.setState({ data: res.express }))
+      .catch((err) => console.log(err));
+    // console.log(res.express);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      this.fetchData(this.props);
+    }
+  }
+
+  callBackendAPI = async () => {
+    const response = await fetch("/");
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message);
+    }
+    return body;
+  };
+
   handleSubmit(e) {
     const target = e.target;
     const value = target.value;
     const name = target.name;
 
+    axios.get("http://localhost:5050/hotellist");
+
     this.setState({ [name]: value });
-    this.getCity();
     console.log(this.state);
-  }
-
-  getCity() {
-    const city = `${this.state.city}, ${this.state.region}`;
-
-    const options = {
-      method: "GET",
-      url: "https://priceline-com-provider.p.rapidapi.com/v1/hotels/locations",
-      params: { name: city },
-      headers: {
-        "x-rapidapi-host": "priceline-com-provider.p.rapidapi.com",
-        "x-rapidapi-key": "f6aff1c7f5msh8c12a345969f9efp10a7a7jsn2feb1f489273",
-      },
-    };
-
-    axios.request(options).then((res) => {
-      console.log(res.data);
-    });
   }
 
   selectRegion(val) {
@@ -90,7 +96,7 @@ export default class App extends Component {
               <Footer />
             </Route>
             <Route path="/hotellist">
-              <HotelList />
+              <HotelList formData={this.state} />
             </Route>
             <Route path="/myaccount">
               <MyAccount />
