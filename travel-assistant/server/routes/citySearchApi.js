@@ -12,11 +12,11 @@ const axios = require("axios").default;
 // });
 
 router.get("/", (req, res) => {
-  console.log(req.body);
+  const body = req.body;
   const options = {
     method: "GET",
     url: "https://priceline-com-provider.p.rapidapi.com/v1/hotels/locations",
-    params: { name: req.params.region },
+    params: body,
     headers: {
       "x-rapidapi-host": "priceline-com-provider.p.rapidapi.com",
       "x-rapidapi-key": apiKey,
@@ -31,6 +31,27 @@ router.get("/", (req, res) => {
   //   .catch(function (error) {
   //     console.error(error);
   //   });
+});
+
+router.post("/", (req, res) => {
+  const body = req.body;
+  const options = {
+    method: "GET",
+    url: "https://priceline-com-provider.p.rapidapi.com/v1/hotels/locations",
+    params: body,
+    headers: {
+      "x-rapidapi-host": "priceline-com-provider.p.rapidapi.com",
+      "x-rapidapi-key": apiKey,
+    },
+  };
+  axios
+    .request(options)
+    .then((response) => {
+      res.send(response.data[0].id);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
 module.exports = router;
