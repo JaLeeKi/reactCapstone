@@ -3,9 +3,8 @@ import axios from "axios";
 import { useHistory } from "react-router";
 
 import Header from "./Header";
-import Footer from "./Footer";
 import Total from "./Total";
-import Flights from "./Flights";
+import Flights from "./Airports";
 
 export default function HotelList({
   city,
@@ -14,7 +13,11 @@ export default function HotelList({
   endDate,
   cityId,
   setCityId,
+  hotelId,
+  setHotelId,
   apiKey,
+  total,
+  setTotal,
 }) {
   const [hotels, setHotels] = useState([]);
   // bcrypt.hash(apiKey, saltRounds, function (err, hash) {
@@ -22,6 +25,7 @@ export default function HotelList({
   // });
 
   useEffect(() => {
+    //add setTimeout() to second axios call to allow state to be set
     const options = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/hotels/locations",
@@ -31,6 +35,7 @@ export default function HotelList({
         "x-rapidapi-key": apiKey,
       },
     };
+
     axios
       .request(options)
       .then((response) => {
@@ -62,41 +67,50 @@ export default function HotelList({
       .request(optionsTwo)
       .then(function (response) {
         setHotels(response.data.hotels);
-        console.log(hotels);
       })
       .catch(function (error) {
         console.error(error);
       });
   }, [city, region, startDate, endDate, cityId]);
 
+  function hotelSelect(e) {
+    e.preventDefault();
+    history.push("/");
+  }
+
+  let history = useHistory();
+
   const displayData = hotels.map((hotel) => {
     if (hotel.name) {
       return (
         <li>
-          <a href="/HotelDisplay">
-            <img src={hotel.media.url} alt="hotel"></img>
-          </a>
-          Hotel: {hotel.name},{hotel.brand}, Rating: {hotel.starRating}
+          <button onClick={hotelSelect}>
+            <img src={hotel.media.url} alt="hotelImg"></img>
+          </button>
+          Hotel: {hotel.name},{hotel.brand}, Rating: {hotel.starRating},
+          Hotel_ID: {hotel.hotelId}
         </li>
       );
     }
     return null;
   });
-  // let history = useHistory();
+
   return (
     <div>
       <Header />
       <h1>Hotels</h1>
 
       <div className="hotelList"></div>
+      <ul>{displayData}</ul>
       <button
-      // onClick={history.push("/flights")}
+        onClick={(e) => {
+          e.preventDefault();
+          history.push("/airports");
+        }}
       >
         Flights
       </button>
-      <ul>{displayData}</ul>
       <Total />
-      <Footer />
     </div>
   );
 }

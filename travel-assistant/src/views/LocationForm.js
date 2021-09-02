@@ -17,8 +17,8 @@ export default function LocationForm({
 }) {
   let history = useHistory();
   function handleSubmit(e) {
-    history.push("/hotellist");
     e.preventDefault();
+    history.push("/hotellist");
     // if (city === "") {
     //   return alert("Please enter a city.");
     // } else if (region === undefined) {

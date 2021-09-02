@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Header from "./views/Header";
 import LocationForm from "./views/LocationForm";
@@ -7,10 +7,10 @@ import HotelList from "./views/HotelList";
 import MyAccount from "./views/MyAccount";
 import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
-import Footer from "./views/Footer";
-import Flights from "./views/Flights";
+import Airports from "./views/Airports";
 import CarRental from "./views/CarRental";
 import Final from "./views/Final";
+import HotelDisplay from "./views/HotelDisplay";
 
 export default function App() {
   const [city, setCity] = useState("");
@@ -19,14 +19,16 @@ export default function App() {
   const [startDate, setStartDate] = useState("YYYY-MM-DD");
   const [endDate, setEndDate] = useState("YYYY-MM-DD");
   const [cityId, setCityId] = useState("");
+  const [hotelId, setHotelId] = useState("");
+  const [total, setTotal] = useState("");
   const [apiKey] = useState(`${process.env.REACT_APP_API_KEY}`);
 
   return (
     <Router>
-      <div>
+      <div className="App">
         <Switch>
           <Route exact path="/">
-            <Header />
+            <Header className="App-header" />
             <LocationForm
               city={city}
               setCity={setCity}
@@ -39,9 +41,8 @@ export default function App() {
               region={region}
               setRegion={setRegion}
             />
-            <Footer />
           </Route>
-          <Route path="/hotellist">
+          <Route exact path="/hotellist">
             <HotelList
               city={city}
               region={region}
@@ -51,25 +52,48 @@ export default function App() {
               cityId={cityId}
               setCityId={setCityId}
               apiKey={apiKey}
+              total={total}
+              setTotal={setTotal}
+              hotelId={hotelId}
+              setHotelId={setHotelId}
             />
+            <HotelDisplay apiKey={apiKey} hotelId={hotelId} />
           </Route>
-          <Route path="/myaccount">
+          <Route exact path="/myaccount">
             <MyAccount />
           </Route>
-          <Route path="/signin">
+          <Route exact path="/signin">
             <SignIn />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignUp />
           </Route>
-          <Route path="/flights">
-            <Flights />
+          <Route exact path="/airports">
+            <Airports
+              total={total}
+              setTotal={setTotal}
+              apiKey={apiKey}
+              cityId={cityId}
+              region={region}
+              guests={guests}
+              startDate={startDate}
+              endDate={endDate}
+            />
           </Route>
-          <Route path="/carrental">
-            <CarRental />
+          <Route exact path="/carrental">
+            <CarRental
+              total={total}
+              setTotal={setTotal}
+              apiKey={apiKey}
+              cityId={cityId}
+              region={region}
+              guests={guests}
+              startDate={startDate}
+              endDate={endDate}
+            />
           </Route>
-          <Route path="/final">
-            <Final />
+          <Route exact path="/final">
+            <Final total={total} setTotal={setTotal} apiKey={apiKey} />
           </Route>
         </Switch>
       </div>
