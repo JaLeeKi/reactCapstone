@@ -7,7 +7,8 @@ import Total from "./Total";
 export default function CarRental({
   apiKey,
   city,
-  region,
+  regionTo,
+  regionFrom,
   guests,
   startDate,
   endDate,
@@ -16,7 +17,7 @@ export default function CarRental({
     const options = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/cars-rentals/locations",
-      params: { name: `${city}, ${region}` },
+      params: { name: `${city}, ${regionTo}` },
       headers: {
         "x-rapidapi-host": "priceline-com-provider.p.rapidapi.com",
         "x-rapidapi-key": apiKey,

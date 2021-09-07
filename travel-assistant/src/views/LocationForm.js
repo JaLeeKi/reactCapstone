@@ -4,16 +4,20 @@ import { useHistory } from "react-router-dom";
 import { RegionDropdown } from "react-country-region-selector";
 
 export default function LocationForm({
-  city,
-  setCity,
+  travelTo,
+  setTravelTo,
+  travelFrom,
+  setTravelFrom,
   guests,
   setGuests,
   startDate,
   setStartDate,
   endDate,
   setEndDate,
-  region,
-  setRegion,
+  regionTo,
+  setRegionTo,
+  regionFrom,
+  setRegionFrom,
 }) {
   let history = useHistory();
   function handleSubmit(e) {
@@ -29,34 +33,56 @@ export default function LocationForm({
     //   return alert("Please select your dates.");
     // }
     const userData = {
-      city: city,
-      region: region,
+      travelFrom: travelFrom,
+      travelTo: travelTo,
+      regionTo: regionTo,
+      regionFrom: regionFrom,
       guests: guests,
       startDate: startDate,
       endDate: endDate,
     };
+    console.log(userData);
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input
-          className="city"
-          name="city"
+          className="travelfrom"
+          name="travelfrom"
           onChange={(e) => {
-            setCity(e.target.value);
+            setTravelFrom(e.target.value);
           }}
           type="text"
-          placeholder="Where Would You Like To Go?"
+          placeholder="Where Are You Coming From?"
         ></input>
         <div>
           <RegionDropdown
             // placeholder="State"
             country="United States"
             onChange={(val) => {
-              setRegion(val);
+              setRegionFrom(val);
             }}
-            value={region}
+            value={regionFrom}
+          />
+        </div>
+        <input
+          className="travelto"
+          name="travelto"
+          onChange={(e) => {
+            setTravelTo(e.target.value);
+          }}
+          type="text"
+          placeholder="Where Are You Going?"
+        ></input>
+        <div>
+          <RegionDropdown
+            // placeholder="State"
+            country="United States"
+            onChange={(val) => {
+              setRegionTo(val);
+            }}
+            value={regionTo}
           />
         </div>
         <div>

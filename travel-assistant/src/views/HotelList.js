@@ -4,11 +4,10 @@ import { useHistory } from "react-router";
 
 import Header from "./Header";
 import Total from "./Total";
-import Flights from "./Airports";
 
 export default function HotelList({
-  city,
-  region,
+  travelTo,
+  regionTo,
   startDate,
   endDate,
   cityId,
@@ -17,34 +16,37 @@ export default function HotelList({
   setHotelId,
   apiKey,
   total,
+  guests,
   setTotal,
 }) {
   const [hotels, setHotels] = useState([]);
+  const [toggleLoading, setToggleLoading] = useState(false);
   // bcrypt.hash(apiKey, saltRounds, function (err, hash) {
   //   // Store hash in your password DB.
   // });
 
   useEffect(() => {
-    //add setTimeout() to second axios call to allow state to be set
+    // add setTimeout() to second axios call to allow state to be set
     const options = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/hotels/locations",
-      params: { name: `${city}, ${region}` },
+      params: { name: `${travelTo}, ${regionTo}` },
       headers: {
         "x-rapidapi-host": "priceline-com-provider.p.rapidapi.com",
         "x-rapidapi-key": apiKey,
       },
     };
-
+    console.log(travelTo);
+    console.log(regionTo);
     axios
       .request(options)
       .then((response) => {
+        console.log(response.data[0]);
         setCityId(response.data[0].id);
       })
       .catch((error) => {
         console.error(error);
       });
-
     const optionsTwo = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/hotels/search",
@@ -63,32 +65,42 @@ export default function HotelList({
       },
     };
 
-    axios
-      .request(optionsTwo)
-      .then(function (response) {
-        setHotels(response.data.hotels);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  }, [city, region, startDate, endDate, cityId]);
+    if (cityId) {
+      axios
+        .request(optionsTwo)
+        .then(function (response) {
+          console.log(response.data);
+          setHotels(response.data.hotels);
+          setToggleLoading(true);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+  }, [cityId]);
 
   function hotelSelect(e) {
     e.preventDefault();
-    history.push("/");
+    setHotelId(e.target.attributes[1].value);
+
+    history.push("/hoteldisplay");
   }
 
   let history = useHistory();
 
   const displayData = hotels.map((hotel) => {
-    if (hotel.name) {
+    if (hotel.hotelId) {
       return (
         <li>
-          <button onClick={hotelSelect}>
-            <img src={hotel.media.url} alt="hotelImg"></img>
+          <button onClick={hotelSelect} hotelid={hotel.hotelId}>
+            <img
+              src={hotel.media.url}
+              hotelid={hotel.hotelId}
+              alt="hotelImg"
+            ></img>
+            <br />
+            {hotel.name} <br /> Rating: {hotel.starRating}
           </button>
-          Hotel: {hotel.name},{hotel.brand}, Rating: {hotel.starRating},
-          Hotel_ID: {hotel.hotelId}
         </li>
       );
     }
@@ -101,16 +113,7 @@ export default function HotelList({
       <h1>Hotels</h1>
 
       <div className="hotelList"></div>
-      <ul>{displayData}</ul>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          history.push("/airports");
-        }}
-      >
-        Flights
-      </button>
-      <Total />
+      {toggleLoading ? <ul>{displayData}</ul> : <h1>LOADING...</h1>}
     </div>
   );
 }

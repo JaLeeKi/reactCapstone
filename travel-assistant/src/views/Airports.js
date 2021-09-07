@@ -3,21 +3,30 @@ import axios from "axios";
 
 import Header from "./Header";
 import Total from "./Total";
+// import { response } from "express";
 
 export default function Airports({
   apiKey,
-  city,
-  region,
+  travelTo,
+  travelFrom,
+  regionTo,
+  regionFrom,
   guests,
   startDate,
   endDate,
 }) {
-  const [allFlightData, setAllFlightData] = useState([[]]);
+  // const [allAirportData, setAllAirportData] = useState([]);
+  const [allFlightData, setAllFlightData] = useState([]);
+  const [fromCityCode, setFromCityCode] = useState("");
+  const [fromStateCode, setFromStateCode] = useState("");
+  const [toCityCode, setToCityCode] = useState("");
+  const [toStateCode, setToStateCode] = useState("");
+
   useEffect(() => {
     const options = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/flights/locations",
-      params: { name: `${city}, ${region}` },
+      params: { name: `${travelTo}, ${regionTo}` },
       headers: {
         "x-rapidapi-host": "priceline-com-provider.p.rapidapi.com",
         "x-rapidapi-key": apiKey,
@@ -27,8 +36,10 @@ export default function Airports({
     axios
       .request(options)
       .then(function (response) {
-        setAllFlightData([response.data]);
-        console.log("airportcall", allFlightData);
+        setToCityCode(response.data[0].cityCode);
+        setToStateCode(response.data[0].stateCode);
+        console.log(toCityCode);
+        console.log(toStateCode);
       })
       .catch(function (error) {
         console.error(error);
@@ -36,12 +47,34 @@ export default function Airports({
 
     const optionsTwo = {
       method: "GET",
+      url: "https://priceline-com-provider.p.rapidapi.com/v1/flights/locations",
+      params: { name: `${travelFrom}, ${regionFrom}` },
+      headers: {
+        "x-rapidapi-host": "priceline-com-provider.p.rapidapi.com",
+        "x-rapidapi-key": apiKey,
+      },
+    };
+
+    axios
+      .request(optionsTwo)
+      .then(function (response) {
+        setFromCityCode(response.data[0].cityCode);
+        setFromStateCode(response.data[0].stateCode);
+        console.log(fromCityCode);
+        console.log(fromStateCode);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+
+    const optionsThree = {
+      method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/flights/search",
       params: {
         class_type: "ECO",
-        location_departure: "MOW",
+        location_departure: fromCityCode,
         itinerary_type: "ROUND_TRIP",
-        location_arrival: "NYC",
+        location_arrival: toCityCode,
         date_departure: startDate,
         sort_order: "PRICE",
         number_of_passengers: guests,
@@ -58,50 +91,77 @@ export default function Airports({
     };
 
     axios
-      .request(optionsTwo)
+      .request(optionsThree)
       .then(function (response) {
-        setAllFlightData([response.data]);
+        setAllFlightData(response.data);
         console.log("flights", allFlightData);
       })
       .catch(function (error) {
         console.error(error);
-      });
-  }, [city, region, startDate, endDate]);
-  console.log(allFlightData);
-  // const displayData = allFlightData.map((flightData) => {
-  //   let airportData = flightData[0].airline;
-  //   let flightData = flightData[0].return(
+      }, []);
+  });
+
+  // console.log(allFlightData);
+  // console.log(allAirportData[0]);
+
+  // const displayAirports = allAirportData[0].map((airportInfo) => {
+  //   console.log(airportInfo.displayName);
+  //   return (
   //     <li>
-  //       <button cityCode={data.cityCode} onClick={() => displayToggle()}>
-  //         {data.displayName}
-  //       </button>
+  //       <button>{airportInfo.displayName}</button>
   //     </li>
   //   );
   // });
 
-  const displayToggle = (flights) => {
-    if (flights) {
-      return (
-        <div>
-          <Header />
-          <h1>Flights</h1>
-          {/* <ol>{displayData}</ol> */}
-          <button>Car Rental</button>
-          <Total />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Header />
-          <h1>Airports</h1>
-          {/* <ol>{displayData}</ol> */}
-          <button>Car Rental</button>
-          <Total />
-        </div>
-      );
-    }
-  };
+  const displayFlights = allFlightData.map((flightInfo) => {
+    console.log(flightInfo);
+    return (
+      <li>
+        <button>
+          {/*    cityCode={flightInfo.cityCode}
+           onClick={() => displayToggle(flightInfo.cityCode)}
+         >
+           {flightInfo.displayName} */}
+          {flightInfo}
+        </button>
+      </li>
+    );
+  });
 
-  return <div>{() => displayToggle()}</div>;
+  // const displayToggle = (cityCode) => {
+  //   if (cityCode) {
+  //     return (
+  //       <div>
+  //         <Header />
+  //         <h1>Flights</h1>
+  //         <ol>{displayFlights}</ol>
+  //         <button>Car Rental</button>
+  //         <Total />
+  //       </div>
+  //     );
+  //   } else {
+  //     return (
+  //       <div>
+  //         <Header />
+  //         <h1>Airports</h1>
+  //         <ol>{displayAirports}</ol>
+  //         <button>Car Rental</button>
+  //         <Total />
+  //       </div>
+  //     );
+  //   }
+  // };
+
+  return (
+    <div>
+      <div>
+        <Header />
+        <h1>Flights</h1>
+        <button>{displayFlights}</button>
+        <button>Car Rental</button>
+        <Total />
+      </div>
+      {/* {() => displayToggle()} */}
+    </div>
+  );
 }

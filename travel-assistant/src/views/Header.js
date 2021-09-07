@@ -1,27 +1,22 @@
 import React from "react";
-
-// function homeLink() {
-//   const home = document.getElementById("home");
-
-//   if (window.location.href === "http://localhost:3000/") {
-//     home.style.visibility = "hidden";
-//   } else {
-//     home.style.visibility = "visible";
-//   }
-// }
+import LoginButton from "../components/LoginButton";
+import LogoutButton from "../components/LogoutButton";
+import MyAccount from "../components/MyAccount";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <div>
       <a href="/">
         <button id="home">Home</button>
       </a>
-      <a href="/myaccount">
-        <button>My Account</button>
-      </a>
-      <a href="/signin">
-        <button>Sign In</button>
-      </a>
+      <LoginButton />
+      <LogoutButton />
+      <MyAccount />
     </div>
   );
 }

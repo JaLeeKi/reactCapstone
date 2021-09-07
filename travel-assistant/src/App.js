@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Header from "./views/Header";
 import LocationForm from "./views/LocationForm";
 import HotelList from "./views/HotelList";
-import MyAccount from "./views/MyAccount";
 import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
 import Airports from "./views/Airports";
@@ -13,9 +12,11 @@ import Final from "./views/Final";
 import HotelDisplay from "./views/HotelDisplay";
 
 export default function App() {
-  const [city, setCity] = useState("");
-  const [region, setRegion] = useState("");
-  const [guests, setGuests] = useState(0);
+  const [travelFrom, setTravelFrom] = useState("Salt Lake City");
+  const [regionFrom, setRegionFrom] = useState("Utah");
+  const [travelTo, setTravelTo] = useState("Las Vegas");
+  const [regionTo, setRegionTo] = useState("Nevada");
+  const [guests, setGuests] = useState(5);
   const [startDate, setStartDate] = useState("YYYY-MM-DD");
   const [endDate, setEndDate] = useState("YYYY-MM-DD");
   const [cityId, setCityId] = useState("");
@@ -30,22 +31,26 @@ export default function App() {
           <Route exact path="/">
             <Header className="App-header" />
             <LocationForm
-              city={city}
-              setCity={setCity}
+              travelTo={travelTo}
+              setTravelTo={setTravelTo}
+              travelFrom={travelFrom}
+              setTravelFrom={setTravelFrom}
               guests={guests}
               setGuests={setGuests}
               startDate={startDate}
               setStartDate={setStartDate}
               endDate={endDate}
               setEndDate={setEndDate}
-              region={region}
-              setRegion={setRegion}
+              regionTo={regionTo}
+              setRegionTo={setRegionTo}
+              regionFrom={regionFrom}
+              setRegionFrom={setRegionFrom}
             />
           </Route>
           <Route exact path="/hotellist">
             <HotelList
-              city={city}
-              region={region}
+              travelTo={travelTo}
+              regionTo={regionTo}
               startDate={startDate}
               endDate={endDate}
               guests={guests}
@@ -57,10 +62,17 @@ export default function App() {
               hotelId={hotelId}
               setHotelId={setHotelId}
             />
-            <HotelDisplay apiKey={apiKey} hotelId={hotelId} />
+            {/* <HotelDisplay apiKey={apiKey} hotelId={hotelId} /> */}
           </Route>
-          <Route exact path="/myaccount">
-            <MyAccount />
+          <Route exact path="/hoteldisplay">
+            <HotelDisplay
+              apiKey={apiKey}
+              hotelId={hotelId}
+              startDate={startDate}
+              endDate={endDate}
+              total={total}
+              setTotal={setTotal}
+            />
           </Route>
           <Route exact path="/signin">
             <SignIn />
@@ -73,8 +85,10 @@ export default function App() {
               total={total}
               setTotal={setTotal}
               apiKey={apiKey}
-              cityId={cityId}
-              region={region}
+              travelTo={travelTo}
+              travelFrom={travelFrom}
+              regionTo={regionTo}
+              regionFrom={regionFrom}
               guests={guests}
               startDate={startDate}
               endDate={endDate}
@@ -85,8 +99,10 @@ export default function App() {
               total={total}
               setTotal={setTotal}
               apiKey={apiKey}
-              cityId={cityId}
-              region={region}
+              travelTo={travelTo}
+              travelFrom={setTravelFrom}
+              regionTo={regionTo}
+              regionFrom={regionFrom}
               guests={guests}
               startDate={startDate}
               endDate={endDate}
