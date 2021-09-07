@@ -1,3 +1,7 @@
 SAVE FOR LATER:
 
 https://www.npmjs.com/package/sharp
+
+https://rapidapi.com/davidtaoweiji/api/priceline-com/
+
+https://github.com/airbnb/javascript
