@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 
-import Header from "./Header";
-import Total from "./Total";
-
 export default function CarRental({
   apiKey,
   city,
@@ -60,12 +57,10 @@ export default function CarRental({
 
   return (
     <div>
-      <Header />
       <h1>Car Rental</h1>
       <a href="/final">
         <button>Submit</button>
       </a>
-      <Total />
     </div>
   );
 }

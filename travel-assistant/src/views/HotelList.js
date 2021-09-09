@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 
-import Header from "./Header";
-import Total from "./Total";
-
 export default function HotelList({
   travelTo,
   regionTo,
@@ -36,12 +33,10 @@ export default function HotelList({
         "x-rapidapi-key": apiKey,
       },
     };
-    console.log(travelTo);
-    console.log(regionTo);
+
     axios
       .request(options)
       .then((response) => {
-        console.log(response.data[0]);
         setCityId(response.data[0].id);
       })
       .catch((error) => {
@@ -69,7 +64,6 @@ export default function HotelList({
       axios
         .request(optionsTwo)
         .then(function (response) {
-          console.log(response.data);
           setHotels(response.data.hotels);
           setToggleLoading(true);
         })
@@ -91,7 +85,7 @@ export default function HotelList({
   const displayData = hotels.map((hotel) => {
     if (hotel.hotelId) {
       return (
-        <li>
+        <li key={hotel.hotelId}>
           <button onClick={hotelSelect} hotelid={hotel.hotelId}>
             <img
               src={hotel.media.url}
@@ -109,7 +103,6 @@ export default function HotelList({
 
   return (
     <div>
-      <Header />
       <h1>Hotels</h1>
 
       <div className="hotelList"></div>

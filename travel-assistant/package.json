@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "flatted": "^3.2.2",
     "gatsby": "^3.12.0",
+    "lodash": "^4.17.21",
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-country-region-selector": "^3.3.0",

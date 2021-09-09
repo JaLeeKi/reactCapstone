@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 
-import Header from "./Header";
-
 export default function HotelDisplay({
   apiKey,
   hotelId,
   startDate,
   endDate,
-  total,
   setTotal,
+  totalNights,
 }) {
   const [booking, setBooking] = useState({});
   const [toggleLoading, setToggleLoading] = useState(false);
@@ -34,7 +32,7 @@ export default function HotelDisplay({
     axios
       .request(options)
       .then(function (response) {
-        console.log("RESPONSE DATA: ", response.data);
+        // console.log("RESPONSE DATA: ", response.data);
         setBooking(response.data);
         setToggleLoading(true);
       })
@@ -42,6 +40,10 @@ export default function HotelDisplay({
         console.error(error);
       });
   }, []);
+
+  let timesRun = 0;
+  let prevRoomArr = [];
+  let prevRoomIdArr = [];
 
   const displayData = (bookingData) => {
     return (
@@ -54,13 +56,13 @@ export default function HotelDisplay({
           {bookingData.location.address.countryName}
         </h2>
         <h3>{bookingData.location.address.phone}</h3> <br />
-        <h3>Overall Guest Rating: {bookingData.overallGuestRating}</h3>
+        <h3>Overall Guest Rating: {bookingData.overallGuestRating}/10</h3>
         <p>{bookingData.description}</p>
         <div>
           <h3>Features: </h3>
           <ul>
             {bookingData.hotelFeatures.features.map((listedFeatures) => {
-              return <li>{listedFeatures}</li>;
+              return <li key={listedFeatures}>{listedFeatures}</li>;
             })}
           </ul>
         </div>
@@ -70,27 +72,82 @@ export default function HotelDisplay({
             Check Out Time: {bookingData.policies.checkOutTime} <br />
           </h4>
         </div>
-        {/* <div>
-          {bookingData.rooms.filter((room) => {
+        <div>
+          {bookingData.rooms.map((room, i) => {
+            let displayPrice = room.displayableRates[0].displayPrice;
 
+            prevRoomArr.push(displayPrice);
+            prevRoomIdArr.push(room.roomId);
+
+            prevRoomIdArr.sort();
+            timesRun++;
+
+            if (timesRun > 1) {
+              if (
+                displayPrice !== prevRoomArr[i - 1] &&
+                room.roomId !== prevRoomIdArr[i - 1]
+              ) {
+                return (
+                  <form key={Math.random()}>
+                    <img
+                      src={
+                        room.images[0].thumbNailUrl
+                          ? room.images[0].thumbNailUrl
+                          : null
+                      }
+                      alt="roomImg"
+                    ></img>
+                    Description: {room.roomDisplayName}, Price Per Night: $
+                    {room.displayableRates[0].displayPrice}
+                    <button
+                      type="submit"
+                      price={room.displayableRates[0].displayPrice}
+                      onClick={(e) => {
+                        e.preventDefault();
+
+                        setTotal(e.target.attributes[1].value * totalNights);
+
+                        history.push("/airports");
+                      }}
+                    >
+                      Book Room
+                    </button>
+                  </form>
+                );
+              } else {
+                return null;
+              }
+            } else {
               return (
-                <div>
-                  <img src={room.images[0].thumbNailUrl} alt="roomImg"></img>
-                  Description: {room.roomDisplayName}, Price: ??
+                <form key={Math.random()}>
+                  <img
+                    src={
+                      room.images[0].thumbNailUrl
+                        ? room.images[0].thumbNailUrl
+                        : null
+                    }
+                    alt="roomImg"
+                  ></img>
+                  Description: {room.roomDisplayName}, Price: $
+                  {room.displayableRates[0].displayPrice}
                   <button
+                    type="submit"
+                    price={room.displayableRates[0].displayPrice}
                     onClick={(e) => {
                       e.preventDefault();
+
+                      setTotal(e.target.attributes[1].value * totalNights);
 
                       history.push("/airports");
                     }}
                   >
                     Book Room
                   </button>
-                </div>
+                </form>
               );
-            
-          }, {room})}
-        </div> */}
+            }
+          })}
+        </div>
       </div>
     );
   };
@@ -99,7 +156,6 @@ export default function HotelDisplay({
 
   return (
     <div>
-      <Header />
       {toggleLoading ? displayData(booking) : <h1>LOADING...</h1>}
 
       <button

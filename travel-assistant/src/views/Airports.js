@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router";
+import _ from "lodash";
 
-import Header from "./Header";
-import Total from "./Total";
 // import { response } from "express";
 
 export default function Airports({
@@ -16,11 +16,12 @@ export default function Airports({
   endDate,
 }) {
   // const [allAirportData, setAllAirportData] = useState([]);
-  const [allFlightData, setAllFlightData] = useState([]);
   const [fromCityCode, setFromCityCode] = useState("");
   const [fromStateCode, setFromStateCode] = useState("");
   const [toCityCode, setToCityCode] = useState("");
   const [toStateCode, setToStateCode] = useState("");
+  const [allFlightData, setAllFlightData] = useState({});
+  const [toggleLoading, setToggleLoading] = useState(false);
 
   useEffect(() => {
     const options = {
@@ -38,8 +39,6 @@ export default function Airports({
       .then(function (response) {
         setToCityCode(response.data[0].cityCode);
         setToStateCode(response.data[0].stateCode);
-        console.log(toCityCode);
-        console.log(toStateCode);
       })
       .catch(function (error) {
         console.error(error);
@@ -55,17 +54,17 @@ export default function Airports({
       },
     };
 
-    axios
-      .request(optionsTwo)
-      .then(function (response) {
-        setFromCityCode(response.data[0].cityCode);
-        setFromStateCode(response.data[0].stateCode);
-        console.log(fromCityCode);
-        console.log(fromStateCode);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    if (toStateCode) {
+      axios
+        .request(optionsTwo)
+        .then(function (response) {
+          setFromCityCode(response.data[0].cityCode);
+          setFromStateCode(response.data[0].stateCode);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
 
     const optionsThree = {
       method: "GET",
@@ -90,78 +89,80 @@ export default function Airports({
       },
     };
 
-    axios
-      .request(optionsThree)
-      .then(function (response) {
-        setAllFlightData(response.data);
-        console.log("flights", allFlightData);
-      })
-      .catch(function (error) {
-        console.error(error);
-      }, []);
-  });
+    if (fromStateCode) {
+      axios
+        .request(optionsThree)
+        .then(function (response) {
+          setAllFlightData(response.data);
+          setToggleLoading(true);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
+  }, [toCityCode, toStateCode, fromStateCode, fromCityCode]);
 
-  // console.log(allFlightData);
-  // console.log(allAirportData[0]);
+  let history = useHistory();
 
-  // const displayAirports = allAirportData[0].map((airportInfo) => {
-  //   console.log(airportInfo.displayName);
-  //   return (
-  //     <li>
-  //       <button>{airportInfo.displayName}</button>
-  //     </li>
-  //   );
-  // });
-
-  const displayFlights = allFlightData.map((flightInfo) => {
-    console.log(flightInfo);
-    return (
-      <li>
-        <button>
-          {/*    cityCode={flightInfo.cityCode}
-           onClick={() => displayToggle(flightInfo.cityCode)}
-         >
-           {flightInfo.displayName} */}
-          {flightInfo}
-        </button>
-      </li>
+  const displayFlights = (allFlightData) => {
+    // let lodashArr = _.concat(
+    //   allFlightData.airline,
+    //   allFlightData.totalTripSummary.airline
+    // );
+    let lodashArr = _.merge(
+      allFlightData.airline,
+      allFlightData.totalTripSummary.airline
     );
-  });
 
-  // const displayToggle = (cityCode) => {
-  //   if (cityCode) {
-  //     return (
-  //       <div>
-  //         <Header />
-  //         <h1>Flights</h1>
-  //         <ol>{displayFlights}</ol>
-  //         <button>Car Rental</button>
-  //         <Total />
-  //       </div>
-  //     );
-  //   } else {
-  //     return (
-  //       <div>
-  //         <Header />
-  //         <h1>Airports</h1>
-  //         <ol>{displayAirports}</ol>
-  //         <button>Car Rental</button>
-  //         <Total />
-  //       </div>
-  //     );
-  //   }
-  // };
+    console.log("LODASHARR: ", lodashArr);
+    return (
+      <div>
+        <div>
+          {lodashArr.map((arrsVal) => {
+            if (arrsVal.lowestTotalFare) {
+              if (arrsVal.name && arrsVal.phoneNumber && arrsVal.websiteUrl) {
+                return (
+                  <div key={arrsVal.code}>
+                    {arrsVal.name} <br />
+                    Phone: {arrsVal.phoneNumber} <br />
+                    Website: {arrsVal.websiteUrl} <br />
+                    Price Per Ticket: ${arrsVal.lowestTotalFare.amount}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        history.push("/carrental");
+                      }}
+                    >
+                      Book Flight
+                    </button>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            } else {
+              return null;
+            }
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div>
       <div>
-        <Header />
         <h1>Flights</h1>
-        <button>{displayFlights}</button>
-        <button>Car Rental</button>
-        <Total />
+        {toggleLoading ? displayFlights(allFlightData) : <h1>LOADING...</h1>}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            history.push("/hoteldisplay");
+          }}
+        >
+          Back
+        </button>
       </div>
-      {/* {() => displayToggle()} */}
     </div>
   );
 }

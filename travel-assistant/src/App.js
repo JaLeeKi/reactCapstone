@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from "./views/Header";
 import LocationForm from "./views/LocationForm";
@@ -10,18 +10,20 @@ import Airports from "./views/Airports";
 import CarRental from "./views/CarRental";
 import Final from "./views/Final";
 import HotelDisplay from "./views/HotelDisplay";
+import Total from "./views/Total";
 
 export default function App() {
-  const [travelFrom, setTravelFrom] = useState("Salt Lake City");
-  const [regionFrom, setRegionFrom] = useState("Utah");
-  const [travelTo, setTravelTo] = useState("Las Vegas");
-  const [regionTo, setRegionTo] = useState("Nevada");
-  const [guests, setGuests] = useState(5);
+  const [travelFrom, setTravelFrom] = useState("");
+  const [regionFrom, setRegionFrom] = useState("");
+  const [travelTo, setTravelTo] = useState("");
+  const [regionTo, setRegionTo] = useState("");
+  const [guests, setGuests] = useState(0);
   const [startDate, setStartDate] = useState("YYYY-MM-DD");
   const [endDate, setEndDate] = useState("YYYY-MM-DD");
   const [cityId, setCityId] = useState("");
   const [hotelId, setHotelId] = useState("");
   const [total, setTotal] = useState("");
+  const [totalNights, setTotalNights] = useState(0);
   const [apiKey] = useState(`${process.env.REACT_APP_API_KEY}`);
 
   return (
@@ -45,9 +47,12 @@ export default function App() {
               setRegionTo={setRegionTo}
               regionFrom={regionFrom}
               setRegionFrom={setRegionFrom}
+              totalNights={totalNights}
+              setTotalNights={setTotalNights}
             />
           </Route>
           <Route exact path="/hotellist">
+            <Header className="App-header" />
             <HotelList
               travelTo={travelTo}
               regionTo={regionTo}
@@ -65,6 +70,7 @@ export default function App() {
             {/* <HotelDisplay apiKey={apiKey} hotelId={hotelId} /> */}
           </Route>
           <Route exact path="/hoteldisplay">
+            <Header className="App-header" />
             <HotelDisplay
               apiKey={apiKey}
               hotelId={hotelId}
@@ -72,15 +78,19 @@ export default function App() {
               endDate={endDate}
               total={total}
               setTotal={setTotal}
+              totalNights={totalNights}
             />
           </Route>
           <Route exact path="/signin">
+            <Header className="App-header" />
             <SignIn />
           </Route>
           <Route exact path="/signup">
+            <Header className="App-header" />
             <SignUp />
           </Route>
           <Route exact path="/airports">
+            <Header className="App-header" />
             <Airports
               total={total}
               setTotal={setTotal}
@@ -93,8 +103,10 @@ export default function App() {
               startDate={startDate}
               endDate={endDate}
             />
+            <Total className="total" total={total} />
           </Route>
           <Route exact path="/carrental">
+            <Header className="App-header" />
             <CarRental
               total={total}
               setTotal={setTotal}
@@ -107,9 +119,12 @@ export default function App() {
               startDate={startDate}
               endDate={endDate}
             />
+            <Total className="total" total={total} />
           </Route>
           <Route exact path="/final">
+            <Header className="App-header" />
             <Final total={total} setTotal={setTotal} apiKey={apiKey} />
+            <Total className="total" total={total} />
           </Route>
         </Switch>
       </div>

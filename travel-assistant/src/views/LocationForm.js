@@ -18,11 +18,14 @@ export default function LocationForm({
   setRegionTo,
   regionFrom,
   setRegionFrom,
+  totalNights,
+  setTotalNights,
 }) {
   let history = useHistory();
+
   function handleSubmit(e) {
     e.preventDefault();
-    history.push("/hotellist");
+
     // if (city === "") {
     //   return alert("Please enter a city.");
     // } else if (region === undefined) {
@@ -32,6 +35,12 @@ export default function LocationForm({
     // } else if (startDate || endDate === "") {
     //   return alert("Please select your dates.");
     // }
+
+    const startDateDate = new Date(startDate);
+    const endDateDate = new Date(endDate);
+    const timeDiff = Math.abs(startDateDate - endDateDate);
+    setTotalNights(Math.ceil(timeDiff / (1000 * 3600 * 24)));
+
     const userData = {
       travelFrom: travelFrom,
       travelTo: travelTo,
@@ -41,7 +50,9 @@ export default function LocationForm({
       startDate: startDate,
       endDate: endDate,
     };
-    console.log(userData);
+    // console.log(userData);
+
+    history.push("/hotellist");
   }
 
   return (
