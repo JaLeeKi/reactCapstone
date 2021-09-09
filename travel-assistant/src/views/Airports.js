@@ -105,10 +105,6 @@ export default function Airports({
   let history = useHistory();
 
   const displayFlights = (allFlightData) => {
-    // let lodashArr = _.concat(
-    //   allFlightData.airline,
-    //   allFlightData.totalTripSummary.airline
-    // );
     let lodashArr = _.merge(
       allFlightData.airline,
       allFlightData.totalTripSummary.airline
