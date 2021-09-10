@@ -9,6 +9,8 @@ export default function HotelDisplay({
   endDate,
   setTotal,
   totalNights,
+  totalObj,
+  setTotalObj,
 }) {
   const [booking, setBooking] = useState({});
   const [toggleLoading, setToggleLoading] = useState(false);
@@ -32,7 +34,6 @@ export default function HotelDisplay({
     axios
       .request(options)
       .then(function (response) {
-        // console.log("RESPONSE DATA: ", response.data);
         setBooking(response.data);
         setToggleLoading(true);
       })
@@ -49,6 +50,7 @@ export default function HotelDisplay({
     return (
       <div>
         <img src={bookingData.thumbnailUrl} alt="hotelImg"></img>
+        <br />
         <h1>{bookingData.name}</h1>
         <h2>{bookingData.location.address.addressLine1}</h2>
         <h2>
@@ -97,16 +99,24 @@ export default function HotelDisplay({
                       }
                       alt="roomImg"
                     ></img>
-                    Description: {room.roomDisplayName}, Price Per Night: $
+                    <br />
+                    Description: {room.roomDisplayName}
+                    <br /> Price Per Night: $
                     {room.displayableRates[0].displayPrice}
+                    <br />
                     <button
                       type="submit"
                       price={room.displayableRates[0].displayPrice}
                       onClick={(e) => {
                         e.preventDefault();
-
+                        setTotalObj([
+                          {
+                            hotelImg: room.images[0].thumbNailUrl,
+                            hotelName: room.roomDisplayName,
+                            hotelPrice: room.displayableRates[0].displayPrice,
+                          },
+                        ]);
                         setTotal(e.target.attributes[1].value * totalNights);
-
                         history.push("/airports");
                       }}
                     >
@@ -128,16 +138,22 @@ export default function HotelDisplay({
                     }
                     alt="roomImg"
                   ></img>
-                  Description: {room.roomDisplayName}, Price: $
+                  <br />
+                  Description: {room.roomDisplayName} <br /> Price Per Night: $
                   {room.displayableRates[0].displayPrice}
+                  <br />
                   <button
                     type="submit"
                     price={room.displayableRates[0].displayPrice}
                     onClick={(e) => {
                       e.preventDefault();
+                      setTotalObj({
+                        hotelImg: room.images[0].thumbNailUrl,
+                        hotelName: room.roomDisplayName,
+                        hotelPrice: room.displayableRates[0].displayPrice,
+                      });
 
                       setTotal(e.target.attributes[1].value * totalNights);
-
                       history.push("/airports");
                     }}
                   >

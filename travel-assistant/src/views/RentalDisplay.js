@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-// import axios from "axios";
+import React from "react";
 import { useHistory } from "react-router";
 import _ from "lodash";
 
@@ -16,11 +15,9 @@ export default function RentalDisplay({
   endDate,
   rentalInfo,
   rentalName,
+  totalObj,
+  setTotalObj,
 }) {
-  useEffect(() => {
-    // console.log("DISPLAYrentalINFO: ", rentalInfo);
-  }, []);
-
   let history = useHistory();
 
   const arrdObj = _.values(rentalInfo.vehicleRates);
@@ -42,12 +39,12 @@ export default function RentalDisplay({
               <div key={Math.random()}>
                 <li>
                   <img src={car.vehicleInfo.images.SIZE134X72} alt="carImg" />
-                  {car.vehicleInfo.vehicleExample} <br />
+                  <h3>{car.vehicleInfo.vehicleExample}</h3> <br />
                   Description: {car.vehicleInfo.description} <br />
                   Seats: {car.vehicleInfo.peopleCapacity} <br />
                   Transmission: {car.vehicleInfo.transmissionTypeCode}
                   <br />
-                  Total Price: ${car.rates.USD.basePrices.TOTAL}
+                  Total Price: ${car.rates.USD.basePrices.TOTAL} <br />
                   <button
                     type="submit"
                     onClick={(e) => {
@@ -56,6 +53,15 @@ export default function RentalDisplay({
                       );
                       e.preventDefault();
 
+                      setTotalObj([
+                        ...totalObj,
+                        {
+                          rentalImg: car.vehicleInfo.images.SIZE134X72,
+                          rentalName: car.vehicleInfo.vehicleExample,
+                          //   rentalSeats: car.vehicleInfo.peopleCapacity,
+                          rentalPrice: car.rates.USD.basePrices.TOTAL,
+                        },
+                      ]);
                       setTotal(total + rentalTotal);
 
                       history.push("/final");

@@ -15,6 +15,7 @@ export default function CarRental({
   setRentalInfo,
   rentalName,
   setRentalName,
+  totalObj,
 }) {
   const [airportCode, setAirportCode] = useState("");
   const [toggleLoading, setToggleLoading] = useState(false);
@@ -35,7 +36,6 @@ export default function CarRental({
         .request(options)
         .then(function (response) {
           setAirportCode(response.data[0].id);
-          // console.log("FIRST RENTAL CALL");
         })
         .catch(function (error) {
           console.error(error);
@@ -62,7 +62,6 @@ export default function CarRental({
         .request(optionsTwo)
         .then(function (response) {
           setRentalInfo(response.data);
-          // console.log("SECOND RENTAL CALL");
           setToggleLoading(true);
         })
         .catch(function (error) {
@@ -74,18 +73,17 @@ export default function CarRental({
   const arrdObj = _.values(rentalInfo.partners);
   const arrdObj2 = _.values(rentalInfo.partnerLocations);
   const lodashArr = _.merge(arrdObj, arrdObj2);
-  // console.log("rentalINFO: ", rentalInfo);
-  // console.log("lodashARR: ", lodashArr);
 
   const displayRentalInfo = lodashArr.map((company) => {
     if (company.address) {
       return (
         <div key={Math.random()}>
-          <img src={company.images.HEIGHT36} alt="rentalImg" />
-          {company.partnerName} <br />
+          <img src={company.images.HEIGHT36} alt="rentalImg" /> <br />
+          <h3>{company.partnerName}</h3>
           Address: {company.address.addressLine1} <br />
           {company.address.cityName}, {company.address.provinceCode}
-          Phone: {company.phoneNumber}
+          <br />
+          Phone: {company.phoneNumber} <br />
           <button
             type="submit"
             // price={}

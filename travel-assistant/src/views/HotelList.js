@@ -96,7 +96,7 @@ export default function HotelList({
               alt="hotelImg"
             ></img>
             <br />
-            {hotel.name} <br /> Rating: {hotel.starRating}
+            <h3>{hotel.name}</h3>Rating: {hotel.starRating}
           </button>
         </li>
       );

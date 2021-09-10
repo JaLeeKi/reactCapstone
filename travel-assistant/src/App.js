@@ -27,6 +27,7 @@ export default function App() {
   const [totalNights, setTotalNights] = useState(0);
   const [rentalInfo, setRentalInfo] = useState({});
   const [rentalName, setRentalName] = useState("");
+  const [totalObj, setTotalObj] = useState([]);
   const [apiKey] = useState(`${process.env.REACT_APP_API_KEY}`);
 
   return (
@@ -82,6 +83,8 @@ export default function App() {
               total={total}
               setTotal={setTotal}
               totalNights={totalNights}
+              totalObj={totalObj}
+              setTotalObj={setTotalObj}
             />
           </Route>
           <Route exact path="/signin">
@@ -106,6 +109,8 @@ export default function App() {
               guests={guests}
               startDate={startDate}
               endDate={endDate}
+              totalObj={totalObj}
+              setTotalObj={setTotalObj}
             />
             <Total className="total" total={total} />
           </Route>
@@ -126,6 +131,7 @@ export default function App() {
               setRentalInfo={setRentalInfo}
               rentalName={rentalName}
               setRentalName={setRentalName}
+              totalObj={totalObj}
             />
             <Total className="total" total={total} />
           </Route>
@@ -145,12 +151,20 @@ export default function App() {
               rentalInfo={rentalInfo}
               rentalName={rentalName}
               setRentalName={setRentalName}
+              totalObj={totalObj}
+              setTotalObj={setTotalObj}
             />
             <Total className="total" total={total} />
           </Route>
           <Route exact path="/final">
             <Header className="App-header" />
-            <Final total={total} setTotal={setTotal} apiKey={apiKey} />
+            <Final
+              total={total}
+              setTotal={setTotal}
+              apiKey={apiKey}
+              totalObj={totalObj}
+              setTotalObj={setTotalObj}
+            />
             <Total className="total" total={total} />
           </Route>
         </Switch>

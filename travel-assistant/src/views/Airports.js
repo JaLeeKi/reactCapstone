@@ -17,6 +17,8 @@ export default function Airports({
   setTotal,
   total,
   totalNights,
+  totalObj,
+  setTotalObj,
 }) {
   // const [allAirportData, setAllAirportData] = useState([]);
   const [fromCityCode, setFromCityCode] = useState("");
@@ -135,6 +137,14 @@ export default function Airports({
                       price={arrsVal.lowestTotalFare.amount}
                       onClick={(e) => {
                         e.preventDefault();
+                        setTotalObj([
+                          ...totalObj,
+                          {
+                            img: null,
+                            flightName: arrsVal.name,
+                            flightPrice: arrsVal.lowestTotalFare.amount,
+                          },
+                        ]);
 
                         setTotal(
                           total + guests * arrsVal.lowestTotalFare.amount
