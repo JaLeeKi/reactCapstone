@@ -14,6 +14,9 @@ export default function Airports({
   guests,
   startDate,
   endDate,
+  setTotal,
+  total,
+  totalNights,
 }) {
   // const [allAirportData, setAllAirportData] = useState([]);
   const [fromCityCode, setFromCityCode] = useState("");
@@ -34,15 +37,17 @@ export default function Airports({
       },
     };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        setToCityCode(response.data[0].cityCode);
-        setToStateCode(response.data[0].stateCode);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    if (!toStateCode) {
+      axios
+        .request(options)
+        .then(function (response) {
+          setToCityCode(response.data[0].cityCode);
+          setToStateCode(response.data[0].stateCode);
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    }
 
     const optionsTwo = {
       method: "GET",
@@ -54,7 +59,7 @@ export default function Airports({
       },
     };
 
-    if (toStateCode) {
+    if (toStateCode && !fromStateCode) {
       axios
         .request(optionsTwo)
         .then(function (response) {
@@ -100,7 +105,7 @@ export default function Airports({
           console.error(error);
         });
     }
-  }, [toCityCode, toStateCode, fromStateCode, fromCityCode]);
+  }, [toStateCode, fromStateCode]);
 
   let history = useHistory();
 
@@ -110,7 +115,8 @@ export default function Airports({
       allFlightData.totalTripSummary.airline
     );
 
-    console.log("LODASHARR: ", lodashArr);
+    //need option if flight is not available
+
     return (
       <div>
         <div>
@@ -119,13 +125,21 @@ export default function Airports({
               if (arrsVal.name && arrsVal.phoneNumber && arrsVal.websiteUrl) {
                 return (
                   <div key={arrsVal.code}>
+                    {/* <img src={arrsVal.smallImage} alt="airlineImg" /> */}
                     {arrsVal.name} <br />
                     Phone: {arrsVal.phoneNumber} <br />
                     Website: {arrsVal.websiteUrl} <br />
                     Price Per Ticket: ${arrsVal.lowestTotalFare.amount}
                     <button
+                      type="submit"
+                      price={arrsVal.lowestTotalFare.amount}
                       onClick={(e) => {
                         e.preventDefault();
+
+                        setTotal(
+                          total + guests * arrsVal.lowestTotalFare.amount
+                        );
+
                         history.push("/carrental");
                       }}
                     >
@@ -149,10 +163,18 @@ export default function Airports({
     <div>
       <div>
         <h1>Flights</h1>
-        {toggleLoading ? displayFlights(allFlightData) : <h1>LOADING...</h1>}
+        {toggleLoading ? (
+          displayFlights(allFlightData)
+        ) : (
+          <div>
+            <h1>LOADING...</h1>
+            <p>(This can sometimes take a second)</p>
+          </div>
+        )}
         <button
           onClick={(e) => {
             e.preventDefault();
+            setTotal(total / totalNights);
             history.push("/hoteldisplay");
           }}
         >

@@ -100,6 +100,7 @@ export default function LocationForm({
           <label for="guests">How Many Guests?</label>
           <br />
           <input
+            //SET MAX OF 7
             type="number"
             onChange={(e) => {
               setGuests(e.target.value);

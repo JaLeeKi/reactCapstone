@@ -34,14 +34,17 @@ export default function HotelList({
       },
     };
 
-    axios
-      .request(options)
-      .then((response) => {
-        setCityId(response.data[0].id);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (!cityId) {
+      axios
+        .request(options)
+        .then((response) => {
+          setCityId(response.data[0].id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+
     const optionsTwo = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/hotels/search",

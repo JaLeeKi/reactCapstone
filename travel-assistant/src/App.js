@@ -8,6 +8,7 @@ import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
 import Airports from "./views/Airports";
 import CarRental from "./views/CarRental";
+import RentalDisplay from "./views/RentalDisplay";
 import Final from "./views/Final";
 import HotelDisplay from "./views/HotelDisplay";
 import Total from "./views/Total";
@@ -24,6 +25,8 @@ export default function App() {
   const [hotelId, setHotelId] = useState("");
   const [total, setTotal] = useState("");
   const [totalNights, setTotalNights] = useState(0);
+  const [rentalInfo, setRentalInfo] = useState({});
+  const [rentalName, setRentalName] = useState("");
   const [apiKey] = useState(`${process.env.REACT_APP_API_KEY}`);
 
   return (
@@ -92,6 +95,7 @@ export default function App() {
           <Route exact path="/airports">
             <Header className="App-header" />
             <Airports
+              totalNights={totalNights}
               total={total}
               setTotal={setTotal}
               apiKey={apiKey}
@@ -118,6 +122,29 @@ export default function App() {
               guests={guests}
               startDate={startDate}
               endDate={endDate}
+              rentalInfo={rentalInfo}
+              setRentalInfo={setRentalInfo}
+              rentalName={rentalName}
+              setRentalName={setRentalName}
+            />
+            <Total className="total" total={total} />
+          </Route>
+          <Route exact path="/rentaldisplay">
+            <Header className="App-header" />
+            <RentalDisplay
+              total={total}
+              setTotal={setTotal}
+              apiKey={apiKey}
+              travelTo={travelTo}
+              travelFrom={setTravelFrom}
+              regionTo={regionTo}
+              regionFrom={regionFrom}
+              guests={guests}
+              startDate={startDate}
+              endDate={endDate}
+              rentalInfo={rentalInfo}
+              rentalName={rentalName}
+              setRentalName={setRentalName}
             />
             <Total className="total" total={total} />
           </Route>

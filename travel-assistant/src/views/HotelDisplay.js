@@ -79,7 +79,7 @@ export default function HotelDisplay({
             prevRoomArr.push(displayPrice);
             prevRoomIdArr.push(room.roomId);
 
-            prevRoomIdArr.sort();
+            // prevRoomIdArr.sort();
             timesRun++;
 
             if (timesRun > 1) {
