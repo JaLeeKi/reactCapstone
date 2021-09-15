@@ -12,7 +12,8 @@ export default function Final({ totalObj }) {
         Price Per Night: ${totalObj[0].hotelPrice} <br />
         <br />
         <h3>Flight:</h3>
-        <h4>{totalObj[1].flightName}</h4> <br />${totalObj[1].flightPrice}
+        <h4>{totalObj[1].flightName}</h4> <br />
+        Price Per Ticket: ${totalObj[1].flightPrice}
         <br />
         <h3>Rental:</h3>
         <img src={totalObj[2].rentalImg} alt="rentalImg" /> <br />

@@ -1,0 +1,62 @@
+.hotelTv {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(222, 184, 135);
+  border: 0.5em solid black;
+  margin: 1em;
+  padding: 1em 0em 5em 2em;
+  flex-direction: row;
+  height: 49em;
+  border-radius: 2.5%;
+  box-shadow: black 0.5em 0.5em 1em;
+  position: relative;
+  z-index: 1;
+}
+
+.hotelScreen {
+  display: flex;
+  justify-content: center;
+  border: 0.25em solid black;
+  background-color: cadetblue;
+  width: 90em;
+  margin: 0em 0em 0em 21em;
+  border-radius: 2.5%;
+  position: relative;
+  z-index: 3;
+}
+
+.loading {
+  margin-top: 10em;
+  font-size: xx-large;
+}
+
+.hotelCard {
+  display: flex;
+  flex-direction: row;
+  z-index: 5;
+  /* width: 10em;
+  height: 10em; */
+}
+
+.hotelList {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  z-index: 4;
+  /* width: 10em;
+  height: 10em; */
+}
+
+.tvBrand {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  position: absolute;
+  height: 8.17em;
+  font-family: "Times New Roman", Times, sans-serif;
+  font-size: 6em;
+  color: rgb(179, 137, 84);
+  transform: scale(1.75, 1);
+  padding-left: 2em;
+  z-index: 2;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import "./HotelDisplay.css";
 
 export default function HotelDisplay({
   apiKey,

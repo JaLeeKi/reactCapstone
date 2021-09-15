@@ -3,20 +3,27 @@ import LoginButton from "../components/LoginButton";
 import LogoutButton from "../components/LogoutButton";
 import MyAccount from "../components/MyAccount";
 import { useAuth0 } from "@auth0/auth0-react";
+import "./Header.css";
 
 export default function Header() {
   const { isLoading } = useAuth0();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="signInScreen"></div>;
 
   return (
-    <div>
-      <a href="/">
-        <button id="home">Home</button>
-      </a>
-      <LoginButton />
-      <LogoutButton />
-      <MyAccount />
+    <div className="header">
+      <div className="signInScreen">
+        <div className="signInBtn">
+          <LoginButton />
+          <LogoutButton />
+          <MyAccount />
+        </div>
+      </div>
+      <div className="resetBtnCont">
+        <a href="/">
+          <button className="resetBtn">Reset</button>
+        </a>
+      </div>
     </div>
   );
 }

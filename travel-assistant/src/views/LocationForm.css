@@ -1,0 +1,137 @@
+.tv {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(222, 184, 135);
+  border: 0.5em solid black;
+  margin: 1em;
+  padding: 1em 0em 5em 2em;
+  flex-direction: row;
+  height: 49em;
+  border-radius: 2.5%;
+  box-shadow: black 0.5em 0.5em 1em;
+}
+
+.screen {
+  display: flex;
+  justify-content: center;
+  border: 0.25em solid black;
+  background-color: cadetblue;
+  width: 90em;
+  margin: 0em 0em 0em 21em;
+  border-radius: 2.5%;
+}
+
+.tvBrand {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  position: absolute;
+  height: 8.17em;
+  font-family: "Times New Roman", Times, sans-serif;
+  font-size: 6em;
+  color: rgb(179, 137, 84);
+  transform: scale(1.75, 1);
+  padding-left: 2em;
+  z-index: 1;
+}
+
+.form {
+  display: flex;
+  font-size: 2.5em;
+  position: absolute;
+  z-index: 2;
+  margin-top: 0.5em;
+}
+
+.travelfrom {
+  width: 55.5em;
+  height: 2.5em;
+  border-radius: 5%;
+  margin-bottom: 0.25em;
+  font-size: x-large;
+  text-align: center;
+}
+
+.travelfrom::placeholder {
+  font-size: x-large;
+  text-align: center;
+  color: black;
+}
+
+.regionFrom {
+  width: 55.85em;
+  height: 2.5em;
+  border-radius: 2.5%;
+  font-size: x-large;
+  margin-bottom: 1em;
+}
+
+.travelto {
+  width: 55.5em;
+  height: 2.5em;
+  border-radius: 5%;
+  margin-bottom: 0.25em;
+  font-size: x-large;
+  text-align: center;
+}
+
+.travelto::placeholder {
+  font-size: x-large;
+  text-align: center;
+  color: black;
+}
+
+.regionTo {
+  width: 55.85em;
+  height: 2.5em;
+  border-radius: 2.5%;
+  font-size: x-large;
+  margin-bottom: 2em;
+}
+
+.guestsLabel {
+  margin-left: 12.5em;
+}
+
+.guests {
+  width: 15.5em;
+  height: 2em;
+  border-radius: 5%;
+  margin-bottom: 2em;
+  margin-left: 20.5em;
+  font-size: x-large;
+}
+
+/* .dates {
+  display: flex;
+  flex-direction: row;
+} */
+
+.dateLabel {
+  margin-left: 9.25em;
+}
+
+.startDate {
+  width: 25em;
+  height: 2.5em;
+  border-radius: 5%;
+  font-size: x-large;
+  margin-left: 5.75em;
+  margin-bottom: 3em;
+  margin-right: 5em;
+}
+
+.endDate {
+  width: 25em;
+  height: 2.5em;
+  border-radius: 5%;
+  font-size: x-large;
+}
+
+.submit {
+  margin-left: 23.75em;
+  height: 2.5em;
+  width: 8.75em;
+  border-radius: 5%;
+  font-size: x-large;
+}

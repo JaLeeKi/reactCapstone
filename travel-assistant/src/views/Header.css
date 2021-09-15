@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  width: 115em;
+}
+
+.resetBtn {
+  height: 2.5em;
+  width: 13.5em;
+  border-radius: 5%;
+  background-color: lightgray;
+  position: absolute;
+  z-index: 3;
+  box-shadow: rgb(179, 137, 84) 0.25em 0.25em 1em;
+  font-size: x-large;
+}
+
+.signInScreen {
+  width: 20em;
+  height: 43em;
+  border: 0.25em solid black;
+  margin-bottom: 3em;
+  background-color: cadetblue;
+  border-radius: 2.5%;
+}
+
+.userData {
+  display: flex;
+  flex-direction: column;
+  width: 10em;
+  margin-right: 10em;
+}

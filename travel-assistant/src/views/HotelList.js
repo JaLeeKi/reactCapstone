@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
+import Header from "./Header";
+import "./HotelList.css";
 
 export default function HotelList({
   travelTo,
@@ -88,28 +90,36 @@ export default function HotelList({
   const displayData = hotels.map((hotel) => {
     if (hotel.hotelId) {
       return (
-        <li key={hotel.hotelId}>
-          <button onClick={hotelSelect} hotelid={hotel.hotelId}>
-            <img
-              src={hotel.media.url}
-              hotelid={hotel.hotelId}
-              alt="hotelImg"
-            ></img>
-            <br />
-            <h3>{hotel.name}</h3>Rating: {hotel.starRating}
-          </button>
-        </li>
+        <div className="hotelCard">
+          <li key={hotel.hotelId}>
+            <button onClick={hotelSelect} hotelid={hotel.hotelId}>
+              <img
+                src={hotel.media.url}
+                hotelid={hotel.hotelId}
+                alt="hotelImg"
+              ></img>
+              <br />
+              <h3>{hotel.name}</h3>Rating: {hotel.starRating}
+            </button>
+          </li>
+        </div>
       );
     }
     return null;
   });
 
   return (
-    <div>
-      <h1>Hotels</h1>
-
-      <div className="hotelList"></div>
-      {toggleLoading ? <ul>{displayData}</ul> : <h1>LOADING...</h1>}
+    <div className="hotelTv">
+      <Header />
+      <div className="hotelScreen">
+        <div className="hotelList"></div>
+        {toggleLoading ? (
+          <ul>{displayData}</ul>
+        ) : (
+          <h1 className="loading">LOADING...</h1>
+        )}
+      </div>
+      <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>
   );
 }
