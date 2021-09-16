@@ -1,27 +1,23 @@
 .signInBtn {
   height: 2.5em;
-  margin-left: 0.75em;
   margin-top: 0.5em;
   border-radius: 5%;
   margin-bottom: 2em;
   width: 10em;
   font-size: x-large;
-  /* background-color: red; */
 }
 
 .signOutBtn {
   height: 2.5em;
-  margin-left: 0.75em;
+  margin-left: 1.68em;
   margin-top: 0.5em;
   border-radius: 5%;
   margin-bottom: 2em;
   width: 10em;
   font-size: x-large;
-  /* background-color: red; */
 }
 
 .userImg {
-  margin-left: 2.25em;
   width: 7em;
   height: 7em;
   border-radius: 50%;

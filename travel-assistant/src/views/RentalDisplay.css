@@ -1,51 +1,60 @@
-.hotelTv {
-  display: flex;
-  justify-content: center;
-  background-color: rgb(222, 184, 135);
-  border: 0.5em solid black;
-  margin: 1em;
-  padding: 1em 0em 5em 2em;
-  flex-direction: row;
-  height: 49em;
-  border-radius: 2.5%;
-  box-shadow: black 0.5em 0.5em 1em;
-  position: relative;
-  z-index: 1;
-}
-
-.hotelScreen {
-  display: flex;
-  justify-content: center;
-  border: 0.25em solid black;
-  background-color: rgb(95, 158, 160);
-  width: 90em;
-  margin-left: 21em;
-  border-radius: 2.5%;
-  position: relative;
-  z-index: 3;
-}
-
 .carData {
   display: flex;
   flex-direction: column;
-  margin-bottom: 0.5em;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  width: 70em;
+  height: 40em;
+  font-size: small;
+  border-radius: 3%;
+  border-bottom: 0.25em solid black;
+  border-right: 0.25em solid black;
 }
 
 .carTotal {
-  text-align: center;
-  justify-items: center;
   min-width: 86em;
   display: grid;
-  grid-auto-rows: 12.5em;
+  /* grid-auto-flow: column; */
   max-height: 47.5em;
   overflow: scroll;
   margin-top: 0.5em;
 }
 
-.backBtn {
-  background-color: transparent;
-  border: transparent;
-  border-radius: 45%;
-  border-right: solid rgb(37, 78, 80) 0.25em;
-  margin-right: 0.25em;
+.carRentalName {
+  margin-left: 10.5em;
+  margin-bottom: 1em;
+}
+
+.carImg {
+  border-radius: 10%;
+  /* margin-bottom: 0em; */
+}
+
+.carName {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.carDesc {
+  margin-bottom: 0em;
+}
+
+.carSeats {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.carTran {
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.carPrice {
+}
+
+.carSubmit {
+  width: 25em;
+  height: 2.5em;
+  border-radius: 25%;
 }

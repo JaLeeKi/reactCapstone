@@ -57,9 +57,9 @@ export default function LocationForm({
   }
 
   return (
-    <div className="tv">
+    <div className="hotelTv">
       <Header />
-      <div className="screen">
+      <div className="hotelScreen">
         <div className="form">
           <form onSubmit={handleSubmit}>
             <input

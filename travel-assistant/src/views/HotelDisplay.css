@@ -1,35 +1,3 @@
-.hotelTv {
-  display: flex;
-  justify-content: center;
-  background-color: rgb(222, 184, 135);
-  border: 0.5em solid black;
-  margin: 1em;
-  padding: 1em 0em 5em 2em;
-  flex-direction: row;
-  height: 49em;
-  border-radius: 2.5%;
-  box-shadow: black 0.5em 0.5em 1em;
-  position: relative;
-  z-index: 2;
-}
-
-.hotelScreen {
-  display: flex;
-  justify-content: center;
-  border: 0.25em solid black;
-  background-color: rgb(95, 158, 160);
-  width: 90em;
-  margin-left: 21em;
-  border-radius: 2.5%;
-  position: relative;
-  z-index: 4;
-}
-
-.loading {
-  margin-top: 10em;
-  font-size: xx-large;
-}
-
 .backBtn {
   background-color: transparent;
   border: transparent;
@@ -50,11 +18,21 @@
   justify-content: space-evenly;
 }
 
-.roomHotelImg {
-  border-radius: 10%;
+.rHotelImg {
+  width: 40em;
+  height: 30em;
+  border-radius: 5%;
 }
 
-.roomHotelImg2 {
+.hotelImg2 {
+  width: 40em;
+  height: 30em;
+  border-radius: 5%;
+}
+
+.roomHotelImg {
+  width: 15em;
+  height: 10em;
   border-radius: 10%;
 }
 
@@ -99,13 +77,10 @@
   align-items: center;
   text-align: center;
   z-index: 4;
-  width: 100em;
-  height: 15em;
-  margin-bottom: 0.25em;
-  margin-left: 2em;
+  width: 104em;
+  height: 25em;
   font-size: small;
   border-radius: 3%;
-  /* margin-left: 16em; */
   border-bottom: 0.25em solid black;
   border-right: 0.25em solid black;
 }
@@ -115,9 +90,12 @@
   flex-direction: row;
 }
 
-.roomImg {
-  /* margin-left: 3.75em; */
-  border-radius: 5%;
-  width: 10em;
-  height: 7em;
+.roomDeets {
+  font-size: large;
+}
+
+.roomSubmit {
+  border-radius: 25%;
+  width: 15em;
+  height: 2.5em;
 }

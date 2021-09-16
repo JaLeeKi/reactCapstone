@@ -20,7 +20,7 @@
   background-color: cadetblue;
   width: 90em;
   margin-left: 21em;
-  border-radius: 2.5%;
+  border-radius: 5%;
   position: relative;
   z-index: 3;
 }
@@ -33,7 +33,7 @@
 .hotelCard {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   z-index: 4;
   width: 20em;
   height: 15em;
@@ -44,7 +44,7 @@
 }
 
 .hotelImg {
-  margin-left: 3.75em;
+  align-self: center;
   border-radius: 5%;
   width: 11em;
   height: 6em;
@@ -52,11 +52,12 @@
 
 .hotelName {
   margin-top: 0em;
-  font-size: large;
+  align-self: center;
 }
 
 .hotelRating {
   margin-top: 0em;
+  align-self: center;
 }
 
 .hotelList {

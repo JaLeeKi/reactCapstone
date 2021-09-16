@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import _ from "lodash";
 import Header from "./Header";
+import Total from "./Total";
 import "./RentalDisplay.css";
 
 export default function RentalDisplay({
@@ -19,6 +20,8 @@ export default function RentalDisplay({
   rentalName,
   totalObj,
   setTotalObj,
+  // rentalImg,
+  // setRentalImg,
 }) {
   let history = useHistory();
 
@@ -28,33 +31,46 @@ export default function RentalDisplay({
   combArr.length = 75;
 
   const displayCars = (combArr) => {
+    console.log("rentalINFO: ", combArr);
     return (
       <div>
         {combArr.map((car, i) => {
           if (
             car.vehicleInfo.vehicleExample &&
-            car.vehicleInfo.images.SIZE134X72 &&
+            car.vehicleInfo.images.SIZE268X144 &&
             car.rates.USD.basePrices.TOTAL &&
             car.vehicleInfo.peopleCapacity >= guests
           ) {
             return (
               <div key={Math.random()} className="carData">
-                <img src={car.vehicleInfo.images.SIZE134X72} alt="carImg" />
-                <h3>{car.vehicleInfo.vehicleExample}</h3> <br />
-                Description: {car.vehicleInfo.description} <br />
-                Seats: {car.vehicleInfo.peopleCapacity} <br />
-                Transmission: {car.vehicleInfo.transmissionTypeCode}
-                <br />
-                Total Price: ${car.rates.USD.basePrices.TOTAL} <br />
+                <img
+                  src={car.vehicleInfo.images.SIZE268X144}
+                  alt="carImg"
+                  className="carImg"
+                />
+                <h1 className="carName">{car.vehicleInfo.vehicleExample}</h1>
+                <h2 className="carDesc">
+                  Description: {car.vehicleInfo.description}
+                </h2>
+                <h2 className="carSeats">
+                  Seats: {car.vehicleInfo.peopleCapacity}
+                </h2>
+                <h2 className="carTran">
+                  Transmission: {car.vehicleInfo.transmissionTypeCode}
+                </h2>
+                <h3 className="carPrice">
+                  Total Price: ${car.rates.USD.basePrices.TOTAL}
+                </h3>
                 <button
                   type="submit"
-                  onClick={async (e) => {
+                  className="carSubmit"
+                  onMouseEnter={(e) => {
                     const rentalTotal = parseInt(
                       car.rates.USD.basePrices.TOTAL
                     );
                     e.preventDefault();
 
-                    await setTotalObj([
+                    setTotalObj([
                       ...totalObj,
                       {
                         rentalImg: car.vehicleInfo.images.SIZE134X72,
@@ -63,11 +79,10 @@ export default function RentalDisplay({
                         rentalPrice: car.rates.USD.basePrices.TOTAL,
                       },
                     ]);
-                    await setTotal(total + rentalTotal);
-
-                    setTimeout(() => {
-                      history.push("/final");
-                    }, 700);
+                    setTotal(total + rentalTotal);
+                  }}
+                  onClick={(e) => {
+                    history.push("/final");
                   }}
                 >
                   Book Rental
@@ -96,9 +111,11 @@ export default function RentalDisplay({
           Back
         </button>
         <div className="carTotal">
-          <h1>{rentalName}</h1>
+          {/* <img src={rentalImg} alt="rentalImg" /> */}
+          <h1 className="carRentalName">{rentalName}</h1>
           <div>{displayCars(arrdObj)}</div>
         </div>
+        <Total />
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>

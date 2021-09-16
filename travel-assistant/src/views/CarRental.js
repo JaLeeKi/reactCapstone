@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import _ from "lodash";
 import Header from "./Header";
+import Total from "./Total";
 import "./CarRental.css";
 
 export default function CarRental({
@@ -18,6 +19,8 @@ export default function CarRental({
   rentalName,
   setRentalName,
   totalObj,
+  // rentalImg,
+  // setRentalImg,
 }) {
   const [airportCode, setAirportCode] = useState("");
   const [toggleLoading, setToggleLoading] = useState(false);
@@ -77,18 +80,28 @@ export default function CarRental({
   const lodashArr = _.merge(arrdObj, arrdObj2);
 
   const displayRentalInfo = lodashArr.map((company) => {
+    console.log("COMPANY: ", company);
+    // setRentalImg({
+    //   imageSrc: company.images.SIZE48X22,
+    //   imageAlt: "rentalImg",
+    // });
     if (company.address) {
       return (
         <div key={Math.random()} className="rentalData">
-          <img src={company.images.HEIGHT36} alt="rentalImg" /> <br />
-          <h3>{company.partnerName}</h3>
-          Address: {company.address.addressLine1} <br />
-          {company.address.cityName}, {company.address.provinceCode}
-          <br />
-          Phone: {company.phoneNumber} <br />
+          <img
+            src={company.images.HEIGHT36}
+            alt="rentalImg"
+            className="rentalImg"
+          />
+          <h1 className="rentalName">{company.partnerName}</h1>
+          <h2 className="rentalAddress1">{company.address.addressLine1}</h2>
+          <h2 className="rentalAddress2">
+            {company.address.cityName}, {company.address.provinceCode}
+          </h2>
+          <h3 className="rentalPhone">Phone: {company.phoneNumber} </h3>
           <button
             type="submit"
-            // price={}
+            className="rentalSubmit"
             onClick={(e) => {
               e.preventDefault();
               setRentalName(company.partnerName);
@@ -122,10 +135,11 @@ export default function CarRental({
         </button>
         <div className="rentalTotal">
           {toggleLoading ? (
-            <ul>{displayRentalInfo}</ul>
+            <div>{displayRentalInfo}</div>
           ) : (
             <h1 className="loading">LOADING...</h1>
           )}
+          <Total />
         </div>
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>

@@ -105,7 +105,9 @@ export default function Airports({
         .request(optionsThree)
         .then(function (response) {
           setAllFlightData(response.data);
-          setToggleLoading(true);
+          setTimeout(() => {
+            setToggleLoading(true);
+          }, 1500);
         })
         .catch(function (error) {
           console.error(error);
@@ -122,7 +124,6 @@ export default function Airports({
     );
 
     //need option if flight is not available
-
     return (
       <div>
         {lodashArr.map((arrsVal) => {
@@ -131,25 +132,31 @@ export default function Airports({
               return (
                 <div key={arrsVal.code} className="flightData">
                   {/* <img src={arrsVal.smallImage} alt="airlineImg" /> */}
-                  {arrsVal.name} <br />
-                  Phone: {arrsVal.phoneNumber} <br />
-                  Website: {arrsVal.websiteUrl} <br />
-                  Price Per Ticket: ${arrsVal.lowestTotalFare.amount}
+                  <h1 className="flightName">{arrsVal.name} </h1>
+                  <h2 className="flightPhone">Phone: {arrsVal.phoneNumber} </h2>
+                  <h3 className="flightWeb">Website: {arrsVal.websiteUrl} </h3>
+                  <h3 className="flightPrice">
+                    Price Per Ticket: ${arrsVal.lowestTotalFare.amount}
+                  </h3>
                   <button
                     type="submit"
                     price={arrsVal.lowestTotalFare.amount}
+                    className="flightSubmit"
+                    onMouseEnter={() => {
+                      setTotal(total + guests * arrsVal.lowestTotalFare.amount);
+                      setTimeout(() => {
+                        setTotalObj([
+                          ...totalObj,
+                          {
+                            img: null,
+                            flightName: arrsVal.name,
+                            flightPrice: arrsVal.lowestTotalFare.amount,
+                          },
+                        ]);
+                      }, 500);
+                    }}
                     onClick={(e) => {
                       e.preventDefault();
-                      setTotalObj([
-                        ...totalObj,
-                        {
-                          img: null,
-                          flightName: arrsVal.name,
-                          flightPrice: arrsVal.lowestTotalFare.amount,
-                        },
-                      ]);
-
-                      setTotal(total + guests * arrsVal.lowestTotalFare.amount);
 
                       history.push("/carrental");
                     }}

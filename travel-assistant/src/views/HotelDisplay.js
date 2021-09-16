@@ -37,7 +37,9 @@ export default function HotelDisplay({
       .request(options)
       .then(function (response) {
         setBooking(response.data);
-        setToggleLoading(true);
+        setTimeout(() => {
+          setToggleLoading(true);
+        }, 500);
       })
       .catch(function (error) {
         console.error(error);
@@ -49,19 +51,19 @@ export default function HotelDisplay({
   let prevRoomIdArr = [];
 
   const displayData = (bookingData) => {
-    // console.log("HotelDisplay:bookingData", bookingData);
+    console.log("HotelDisplay:bookingData", bookingData);
     return (
       <div className="hotelRoom">
         <div className="hotelImgs">
           <img
             src={bookingData.images[6].imageUrl}
             alt="hotelImg"
-            className="roomHotelImg"
+            className="rHotelImg"
           ></img>
           <img
             src={bookingData.images[13].imageUrl}
             alt="hotelImg2"
-            className="roomHotelImg2"
+            className="hotelImg2"
           ></img>
         </div>
         <div className="hotelDesc">
@@ -71,7 +73,8 @@ export default function HotelDisplay({
           </h2>
           <h2 className="hotelAddress2">
             {bookingData.location.address.cityName},{" "}
-            {bookingData.location.address.countryName}
+            {bookingData.location.address.provinceCode}{" "}
+            {bookingData.location.address.zip}
           </h2>
           <h3 className="hotelPhone">
             Phone: {bookingData.location.address.phone}
@@ -96,7 +99,7 @@ export default function HotelDisplay({
         </div>
         <div>
           {bookingData.rooms.map((room, i) => {
-            // console.log("HotelDisplay:bookingData.rooms", room);
+            console.log("HotelDisplay:bookingData.rooms", room);
             let displayPrice = room.displayableRates[0].displayPrice;
 
             prevRoomArr.push(displayPrice);
@@ -120,34 +123,35 @@ export default function HotelDisplay({
                             : null
                         }
                         alt="roomImg"
-                        className="roomImg"
+                        className="roomHotelImg"
                       ></img>
                     </div>
-                    <br />
-                    Description: {room.roomDisplayName}
-                    <br /> Price Per Night: $
-                    {room.displayableRates[0].displayPrice}
-                    <br />
+                    <div className="roomDeets">
+                      <h3>Description: {room.roomDisplayName}</h3>
+                      <h4>
+                        Price Per Night: $
+                        {room.displayableRates[0].displayPrice}
+                      </h4>
+                    </div>
                     <button
                       type="submit"
                       price={room.displayableRates[0].displayPrice}
-                      onClick={async (e) => {
-                        e.preventDefault();
-                        await setTotalObj([
+                      className="roomSubmit"
+                      onMouseEnter={() => {
+                        setTotalObj([
                           {
                             hotelImg: room.images[0].thumbNailUrl,
                             hotelName: room.roomDisplayName,
                             hotelPrice: room.displayableRates[0].displayPrice,
                           },
                         ]);
-                        await setTotal(
-                          e.target.attributes[1].value * totalNights
-                        );
-                        console.log("e.target", e.target.attributes[1].value);
-                        console.log("totalNight", totalNights);
+                      }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setTotal(e.target.attributes[1].value * totalNights);
                         setTimeout(() => {
                           history.push("/airports");
-                        }, 500);
+                        }, 1000);
                       }}
                     >
                       Book Room
@@ -167,25 +171,31 @@ export default function HotelDisplay({
                         : null
                     }
                     alt="roomImg"
-                    className="roomImg"
+                    className="roomHotelImg"
                   ></img>
-                  <br />
-                  Description: {room.roomDisplayName} <br /> Price Per Night: $
-                  {room.displayableRates[0].displayPrice}
-                  <br />
+                  <div className="roomDeets">
+                    <h3>Description: {room.roomDisplayName}</h3>
+                    <h4>
+                      Price Per Night: ${room.displayableRates[0].displayPrice}
+                    </h4>
+                  </div>
                   <button
                     type="submit"
                     price={room.displayableRates[0].displayPrice}
-                    onClick={(e) => {
-                      e.preventDefault();
+                    className="roomSubmit"
+                    onMouseEnter={() => {
                       setTotalObj({
                         hotelImg: room.images[0].thumbNailUrl,
                         hotelName: room.roomDisplayName,
                         hotelPrice: room.displayableRates[0].displayPrice,
                       });
-
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault();
                       setTotal(e.target.attributes[1].value * totalNights);
-                      history.push("/airports");
+                      setTimeout(() => {
+                        history.push("/airports");
+                      }, 1000);
                     }}
                   >
                     Book Room
@@ -216,7 +226,6 @@ export default function HotelDisplay({
             Back
           </button>
         ) : null}
-
         {toggleLoading ? (
           displayData(booking)
         ) : (

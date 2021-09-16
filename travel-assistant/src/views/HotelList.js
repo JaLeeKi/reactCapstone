@@ -80,25 +80,35 @@ export default function HotelList({
 
   let history = useHistory();
 
-  async function hotelSelect(e) {
-    e.preventDefault();
-    // console.log("HotelList:e.target1", e.target.attributes);
-    if (e.target.attributes[1].value) {
-      await setHotelId(e.target.attributes[1].value);
-    }
-    setTimeout(() => {
-      history.push("/hoteldisplay");
-    }, 500);
-  }
+  // function hotelSelect(e) {
+  //   e.preventDefault();
+  //   console.log("HotelList:e.target1", e.target.attributes);
+  //   if (e.target.attributes[1].value) {
+  //     // setTimeout(() => {
+  //       setHotelId(e.target.attributes[1].value);
+  //     // }, 1000);
+  //     // setTimeout(() => {
+  //       history.push("/hoteldisplay");
+  //     // }, 1500);
+  //   } else {
+  //     setHotelId(e.target.attributes[1].value);
+  //     history.push("/hoteldisplay");
+  //   }
+  // }
 
   const displayData = hotels.map((hotel) => {
     if (hotel.hotelId) {
-      // console.log("HotelList:hotel", hotel);
+      console.log("HotelList:hotel", hotel);
       return (
         <div key={hotel.hotelId}>
           <button
             className="hotelCard"
-            onClick={hotelSelect}
+            onMouseEnter={(e) => {
+              setHotelId(e.target.attributes[1].value);
+            }}
+            onClick={() => {
+              history.push("/hoteldisplay");
+            }}
             hotelid={hotel.hotelId}
           >
             <img

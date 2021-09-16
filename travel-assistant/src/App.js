@@ -28,6 +28,10 @@ export default function App() {
   const [totalNights, setTotalNights] = useState(0);
   const [rentalInfo, setRentalInfo] = useState({});
   const [rentalName, setRentalName] = useState("");
+  // const [rentalImg, setRentalImg] = useState({
+  //   imageSrc: "",
+  //   imageAlt: "",
+  // });
   const [totalObj, setTotalObj] = useState([]);
   const [apiKey] = useState(`${process.env.REACT_APP_API_KEY}`);
 
@@ -131,6 +135,8 @@ export default function App() {
               setRentalInfo={setRentalInfo}
               rentalName={rentalName}
               setRentalName={setRentalName}
+              // rentalImg={rentalImg}
+              // setRentalImg={setRentalImg}
               totalObj={totalObj}
             />
             {/* <Total className="total" total={total} /> */}
@@ -151,6 +157,8 @@ export default function App() {
               rentalInfo={rentalInfo}
               rentalName={rentalName}
               setRentalName={setRentalName}
+              // rentalImg={rentalImg}
+              // setRentalImg={setRentalImg}
               totalObj={totalObj}
               setTotalObj={setTotalObj}
             />
