@@ -25,6 +25,24 @@
   z-index: 3;
 }
 
+.rentalData {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5em;
+}
+
+.rentalTotal {
+  text-align: center;
+  justify-items: center;
+  min-width: 86em;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-rows: 12.5em;
+  max-height: 47.5em;
+  overflow: scroll;
+  margin-top: 0.5em;
+}
+
 .backBtn {
   background-color: transparent;
   border: transparent;

@@ -32,6 +32,7 @@ export default function Airports({
   const [toggleLoading, setToggleLoading] = useState(false);
 
   useEffect(() => {
+    console.log("TOTAL: ", total);
     const options = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/flights/locations",
@@ -124,50 +125,46 @@ export default function Airports({
 
     return (
       <div>
-        <div>
-          {lodashArr.map((arrsVal) => {
-            if (arrsVal.lowestTotalFare) {
-              if (arrsVal.name && arrsVal.phoneNumber && arrsVal.websiteUrl) {
-                return (
-                  <div key={arrsVal.code}>
-                    {/* <img src={arrsVal.smallImage} alt="airlineImg" /> */}
-                    {arrsVal.name} <br />
-                    Phone: {arrsVal.phoneNumber} <br />
-                    Website: {arrsVal.websiteUrl} <br />
-                    Price Per Ticket: ${arrsVal.lowestTotalFare.amount}
-                    <button
-                      type="submit"
-                      price={arrsVal.lowestTotalFare.amount}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setTotalObj([
-                          ...totalObj,
-                          {
-                            img: null,
-                            flightName: arrsVal.name,
-                            flightPrice: arrsVal.lowestTotalFare.amount,
-                          },
-                        ]);
+        {lodashArr.map((arrsVal) => {
+          if (arrsVal.lowestTotalFare) {
+            if (arrsVal.name && arrsVal.phoneNumber && arrsVal.websiteUrl) {
+              return (
+                <div key={arrsVal.code} className="flightData">
+                  {/* <img src={arrsVal.smallImage} alt="airlineImg" /> */}
+                  {arrsVal.name} <br />
+                  Phone: {arrsVal.phoneNumber} <br />
+                  Website: {arrsVal.websiteUrl} <br />
+                  Price Per Ticket: ${arrsVal.lowestTotalFare.amount}
+                  <button
+                    type="submit"
+                    price={arrsVal.lowestTotalFare.amount}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setTotalObj([
+                        ...totalObj,
+                        {
+                          img: null,
+                          flightName: arrsVal.name,
+                          flightPrice: arrsVal.lowestTotalFare.amount,
+                        },
+                      ]);
 
-                        setTotal(
-                          total + guests * arrsVal.lowestTotalFare.amount
-                        );
+                      setTotal(total + guests * arrsVal.lowestTotalFare.amount);
 
-                        history.push("/carrental");
-                      }}
-                    >
-                      Book Flight
-                    </button>
-                  </div>
-                );
-              } else {
-                return null;
-              }
+                      history.push("/carrental");
+                    }}
+                  >
+                    Book Flight
+                  </button>
+                </div>
+              );
             } else {
               return null;
             }
-          })}
-        </div>
+          } else {
+            return null;
+          }
+        })}
       </div>
     );
   };
@@ -186,15 +183,17 @@ export default function Airports({
         >
           Back
         </button>
-        {toggleLoading ? (
-          displayFlights(allFlightData)
-        ) : (
-          <div>
-            <h1>LOADING...</h1>
-            <p>(This can sometimes take a second)</p>
-          </div>
-        )}
-        <Total />
+        <div className="flightsTotal">
+          {toggleLoading ? (
+            displayFlights(allFlightData)
+          ) : (
+            <div>
+              <h1 className="loading">LOADING...</h1>
+              <p>(This can sometimes take a second)</p>
+            </div>
+          )}
+          <Total />
+        </div>
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>

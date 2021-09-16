@@ -38,40 +38,40 @@ export default function RentalDisplay({
             car.vehicleInfo.peopleCapacity >= guests
           ) {
             return (
-              <div key={Math.random()}>
-                <li>
-                  <img src={car.vehicleInfo.images.SIZE134X72} alt="carImg" />
-                  <h3>{car.vehicleInfo.vehicleExample}</h3> <br />
-                  Description: {car.vehicleInfo.description} <br />
-                  Seats: {car.vehicleInfo.peopleCapacity} <br />
-                  Transmission: {car.vehicleInfo.transmissionTypeCode}
-                  <br />
-                  Total Price: ${car.rates.USD.basePrices.TOTAL} <br />
-                  <button
-                    type="submit"
-                    onClick={(e) => {
-                      const rentalTotal = parseInt(
-                        car.rates.USD.basePrices.TOTAL
-                      );
-                      e.preventDefault();
+              <div key={Math.random()} className="carData">
+                <img src={car.vehicleInfo.images.SIZE134X72} alt="carImg" />
+                <h3>{car.vehicleInfo.vehicleExample}</h3> <br />
+                Description: {car.vehicleInfo.description} <br />
+                Seats: {car.vehicleInfo.peopleCapacity} <br />
+                Transmission: {car.vehicleInfo.transmissionTypeCode}
+                <br />
+                Total Price: ${car.rates.USD.basePrices.TOTAL} <br />
+                <button
+                  type="submit"
+                  onClick={async (e) => {
+                    const rentalTotal = parseInt(
+                      car.rates.USD.basePrices.TOTAL
+                    );
+                    e.preventDefault();
 
-                      setTotalObj([
-                        ...totalObj,
-                        {
-                          rentalImg: car.vehicleInfo.images.SIZE134X72,
-                          rentalName: car.vehicleInfo.vehicleExample,
-                          //   rentalSeats: car.vehicleInfo.peopleCapacity,
-                          rentalPrice: car.rates.USD.basePrices.TOTAL,
-                        },
-                      ]);
-                      setTotal(total + rentalTotal);
+                    await setTotalObj([
+                      ...totalObj,
+                      {
+                        rentalImg: car.vehicleInfo.images.SIZE134X72,
+                        rentalName: car.vehicleInfo.vehicleExample,
+                        //   rentalSeats: car.vehicleInfo.peopleCapacity,
+                        rentalPrice: car.rates.USD.basePrices.TOTAL,
+                      },
+                    ]);
+                    await setTotal(total + rentalTotal);
 
+                    setTimeout(() => {
                       history.push("/final");
-                    }}
-                  >
-                    Book Rental
-                  </button>
-                </li>
+                    }, 700);
+                  }}
+                >
+                  Book Rental
+                </button>
               </div>
             );
           } else {
@@ -95,8 +95,10 @@ export default function RentalDisplay({
         >
           Back
         </button>
-        <h1>{rentalName}</h1>
-        <ol>{displayCars(arrdObj)}</ol>
+        <div className="carTotal">
+          <h1>{rentalName}</h1>
+          <div>{displayCars(arrdObj)}</div>
+        </div>
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>

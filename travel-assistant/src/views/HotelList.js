@@ -78,16 +78,18 @@ export default function HotelList({
     }
   }, [cityId]);
 
-  function hotelSelect(e) {
-    e.preventDefault();
-    setHotelId(e.target.attributes[1].value);
-    // console.log("HotelList:e.target", e.target.attributes[1].value);
-    // setTimeout(() => {
-    history.push("/hoteldisplay");
-    // }, 1000);
-  }
-
   let history = useHistory();
+
+  async function hotelSelect(e) {
+    e.preventDefault();
+    // console.log("HotelList:e.target1", e.target.attributes);
+    if (e.target.attributes[1].value) {
+      await setHotelId(e.target.attributes[1].value);
+    }
+    setTimeout(() => {
+      history.push("/hoteldisplay");
+    }, 500);
+  }
 
   const displayData = hotels.map((hotel) => {
     if (hotel.hotelId) {

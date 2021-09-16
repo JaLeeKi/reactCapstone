@@ -79,7 +79,7 @@ export default function CarRental({
   const displayRentalInfo = lodashArr.map((company) => {
     if (company.address) {
       return (
-        <div key={Math.random()}>
+        <div key={Math.random()} className="rentalData">
           <img src={company.images.HEIGHT36} alt="rentalImg" /> <br />
           <h3>{company.partnerName}</h3>
           Address: {company.address.addressLine1} <br />
@@ -120,8 +120,12 @@ export default function CarRental({
         >
           Back
         </button>
-        <div>
-          {toggleLoading ? <ul>{displayRentalInfo}</ul> : <h1>LOADING...</h1>}
+        <div className="rentalTotal">
+          {toggleLoading ? (
+            <ul>{displayRentalInfo}</ul>
+          ) : (
+            <h1 className="loading">LOADING...</h1>
+          )}
         </div>
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>

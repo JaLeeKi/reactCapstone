@@ -25,10 +25,19 @@
   z-index: 3;
 }
 
-.backBtn {
-  background-color: transparent;
-  border: transparent;
-  border-radius: 45%;
-  border-right: solid rgb(37, 78, 80) 0.25em;
-  margin-right: 0.25em;
+.flightData {
+  display: flex;
+  flex-direction: column;
+}
+
+.flightsTotal {
+  text-align: center;
+  justify-items: center;
+  min-width: 86em;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-rows: 12.5em;
+  max-height: 47.5em;
+  overflow: scroll;
+  margin-top: 0.5em;
 }

@@ -52,16 +52,33 @@ export default function HotelDisplay({
     // console.log("HotelDisplay:bookingData", bookingData);
     return (
       <div className="hotelRoom">
-        <img src={bookingData.thumbnailUrl} alt="hotelImg"></img>
-        <br />
-        <h1>{bookingData.name}</h1>
-        <h2>{bookingData.location.address.addressLine1}</h2>
-        <h2>
-          {bookingData.location.address.cityName},{" "}
-          {bookingData.location.address.countryName}
-        </h2>
-        <h3>Phone: {bookingData.location.address.phone}</h3> <br />
-        <h3>Overall Guest Rating: {bookingData.overallGuestRating}/10</h3>
+        <div className="hotelImgs">
+          <img
+            src={bookingData.images[6].imageUrl}
+            alt="hotelImg"
+            className="roomHotelImg"
+          ></img>
+          <img
+            src={bookingData.images[13].imageUrl}
+            alt="hotelImg2"
+            className="roomHotelImg2"
+          ></img>
+        </div>
+        <div className="hotelDesc">
+          <h1 className="roomHotelName">{bookingData.name}</h1>
+          <h2 className="hotelAddress1">
+            {bookingData.location.address.addressLine1}
+          </h2>
+          <h2 className="hotelAddress2">
+            {bookingData.location.address.cityName},{" "}
+            {bookingData.location.address.countryName}
+          </h2>
+          <h3 className="hotelPhone">
+            Phone: {bookingData.location.address.phone}
+          </h3>{" "}
+          <br />
+        </div>
+        <h2>Overall Guest Rating: {bookingData.overallGuestRating}/10</h2>
         <p>{bookingData.description}</p>
         <div>
           <h3>Features: </h3>
@@ -105,51 +122,6 @@ export default function HotelDisplay({
                         alt="roomImg"
                         className="roomImg"
                       ></img>
-                      {/* <img
-                        src={
-                          room.images[0].thumbNailUrl
-                            ? room.images[1].thumbNailUrl
-                            : null
-                        }
-                        alt="roomImg"
-                        className="roomImg"
-                      ></img> */}
-                      {/* <img
-                        src={
-                          room.images[0].thumbNailUrl
-                            ? room.images[2].thumbNailUrl
-                            : null
-                        }
-                        alt="roomImg"
-                        className="roomImg"
-                      ></img>
-                      <img
-                        src={
-                          room.images[1].thumbNailUrl
-                            ? room.images[0].thumbNailUrl
-                            : null
-                        }
-                        alt="roomImg"
-                        className="roomImg"
-                      ></img>
-                      <img
-                        src={
-                          room.images[1].thumbNailUrl
-                            ? room.images[1].thumbNailUrl
-                            : null
-                        }
-                        alt="roomImg"
-                        className="roomImg"
-                      ></img>
-                      <img
-                        src={
-                          room.images[1].thumbNailUrl
-                            ? room.images[2].thumbNailUrl
-                            : null
-                        }
-                        alt="roomImg"
-                        className="roomImg"
-                      ></img> */}
                     </div>
                     <br />
                     Description: {room.roomDisplayName}
@@ -159,17 +131,23 @@ export default function HotelDisplay({
                     <button
                       type="submit"
                       price={room.displayableRates[0].displayPrice}
-                      onClick={(e) => {
+                      onClick={async (e) => {
                         e.preventDefault();
-                        setTotalObj([
+                        await setTotalObj([
                           {
                             hotelImg: room.images[0].thumbNailUrl,
                             hotelName: room.roomDisplayName,
                             hotelPrice: room.displayableRates[0].displayPrice,
                           },
                         ]);
-                        setTotal(e.target.attributes[1].value * totalNights);
-                        history.push("/airports");
+                        await setTotal(
+                          e.target.attributes[1].value * totalNights
+                        );
+                        console.log("e.target", e.target.attributes[1].value);
+                        console.log("totalNight", totalNights);
+                        setTimeout(() => {
+                          history.push("/airports");
+                        }, 500);
                       }}
                     >
                       Book Room
