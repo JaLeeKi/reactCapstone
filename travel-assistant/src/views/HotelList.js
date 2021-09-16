@@ -54,7 +54,7 @@ export default function HotelList({
         location_id: cityId,
         date_checkin: startDate,
         date_checkout: endDate,
-        sort_order: "HDR",
+        sort_order: "STAR",
         amenities_ids: "FINTRNT,FBRKFST",
         rooms_number: "1",
         star_rating_ids: "3.0,3.5,4.0,4.5,5.0",
@@ -81,27 +81,34 @@ export default function HotelList({
   function hotelSelect(e) {
     e.preventDefault();
     setHotelId(e.target.attributes[1].value);
-
+    // console.log("HotelList:e.target", e.target.attributes[1].value);
+    // setTimeout(() => {
     history.push("/hoteldisplay");
+    // }, 1000);
   }
 
   let history = useHistory();
 
   const displayData = hotels.map((hotel) => {
     if (hotel.hotelId) {
+      // console.log("HotelList:hotel", hotel);
       return (
-        <div className="hotelCard">
-          <li key={hotel.hotelId}>
-            <button onClick={hotelSelect} hotelid={hotel.hotelId}>
-              <img
-                src={hotel.media.url}
-                hotelid={hotel.hotelId}
-                alt="hotelImg"
-              ></img>
-              <br />
-              <h3>{hotel.name}</h3>Rating: {hotel.starRating}
-            </button>
-          </li>
+        <div key={hotel.hotelId}>
+          <button
+            className="hotelCard"
+            onClick={hotelSelect}
+            hotelid={hotel.hotelId}
+          >
+            <img
+              src={hotel.media.url}
+              hotelid={hotel.hotelId}
+              alt="hotelImg"
+              className="hotelImg"
+            ></img>
+            <br />
+            <h3 className="hotelName">{hotel.name}</h3>
+            <h4 className="hotelRating">Stars: {hotel.starRating}/5</h4>
+          </button>
         </div>
       );
     }
@@ -112,12 +119,13 @@ export default function HotelList({
     <div className="hotelTv">
       <Header />
       <div className="hotelScreen">
-        <div className="hotelList"></div>
-        {toggleLoading ? (
-          <ul>{displayData}</ul>
-        ) : (
-          <h1 className="loading">LOADING...</h1>
-        )}
+        <div>
+          {toggleLoading ? (
+            <div className="hotelList">{displayData}</div>
+          ) : (
+            <h1 className="loading">LOADING...</h1>
+          )}
+        </div>
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>

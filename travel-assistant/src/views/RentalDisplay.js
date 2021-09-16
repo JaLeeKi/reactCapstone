@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router";
 import _ from "lodash";
+import Header from "./Header";
+import "./RentalDisplay.css";
 
 export default function RentalDisplay({
   total,
@@ -81,17 +83,22 @@ export default function RentalDisplay({
   };
 
   return (
-    <div>
-      <h1>{rentalName}</h1>
-      <ol>{displayCars(arrdObj)}</ol>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          history.push("/carrental");
-        }}
-      >
-        Back
-      </button>
+    <div className="hotelTv">
+      <Header />
+      <div className="hotelScreen">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            history.push("/carrental");
+          }}
+          className="backBtn"
+        >
+          Back
+        </button>
+        <h1>{rentalName}</h1>
+        <ol>{displayCars(arrdObj)}</ol>
+      </div>
+      <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>
   );
 }

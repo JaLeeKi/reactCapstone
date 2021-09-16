@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import "./HotelDisplay.css";
+import Header from "./Header";
 
 export default function HotelDisplay({
   apiKey,
@@ -48,8 +49,9 @@ export default function HotelDisplay({
   let prevRoomIdArr = [];
 
   const displayData = (bookingData) => {
+    // console.log("HotelDisplay:bookingData", bookingData);
     return (
-      <div>
+      <div className="hotelRoom">
         <img src={bookingData.thumbnailUrl} alt="hotelImg"></img>
         <br />
         <h1>{bookingData.name}</h1>
@@ -58,7 +60,7 @@ export default function HotelDisplay({
           {bookingData.location.address.cityName},{" "}
           {bookingData.location.address.countryName}
         </h2>
-        <h3>{bookingData.location.address.phone}</h3> <br />
+        <h3>Phone: {bookingData.location.address.phone}</h3> <br />
         <h3>Overall Guest Rating: {bookingData.overallGuestRating}/10</h3>
         <p>{bookingData.description}</p>
         <div>
@@ -77,6 +79,7 @@ export default function HotelDisplay({
         </div>
         <div>
           {bookingData.rooms.map((room, i) => {
+            // console.log("HotelDisplay:bookingData.rooms", room);
             let displayPrice = room.displayableRates[0].displayPrice;
 
             prevRoomArr.push(displayPrice);
@@ -91,15 +94,63 @@ export default function HotelDisplay({
                 room.roomId !== prevRoomIdArr[i - 1]
               ) {
                 return (
-                  <form key={Math.random()}>
-                    <img
-                      src={
-                        room.images[0].thumbNailUrl
-                          ? room.images[0].thumbNailUrl
-                          : null
-                      }
-                      alt="roomImg"
-                    ></img>
+                  <div key={Math.random()} className="roomCard">
+                    <div className="roomImgs">
+                      <img
+                        src={
+                          room.images[0].thumbNailUrl
+                            ? room.images[0].thumbNailUrl
+                            : null
+                        }
+                        alt="roomImg"
+                        className="roomImg"
+                      ></img>
+                      {/* <img
+                        src={
+                          room.images[0].thumbNailUrl
+                            ? room.images[1].thumbNailUrl
+                            : null
+                        }
+                        alt="roomImg"
+                        className="roomImg"
+                      ></img> */}
+                      {/* <img
+                        src={
+                          room.images[0].thumbNailUrl
+                            ? room.images[2].thumbNailUrl
+                            : null
+                        }
+                        alt="roomImg"
+                        className="roomImg"
+                      ></img>
+                      <img
+                        src={
+                          room.images[1].thumbNailUrl
+                            ? room.images[0].thumbNailUrl
+                            : null
+                        }
+                        alt="roomImg"
+                        className="roomImg"
+                      ></img>
+                      <img
+                        src={
+                          room.images[1].thumbNailUrl
+                            ? room.images[1].thumbNailUrl
+                            : null
+                        }
+                        alt="roomImg"
+                        className="roomImg"
+                      ></img>
+                      <img
+                        src={
+                          room.images[1].thumbNailUrl
+                            ? room.images[2].thumbNailUrl
+                            : null
+                        }
+                        alt="roomImg"
+                        className="roomImg"
+                      ></img> */}
+                    </div>
                     <br />
                     Description: {room.roomDisplayName}
                     <br /> Price Per Night: $
@@ -123,14 +174,14 @@ export default function HotelDisplay({
                     >
                       Book Room
                     </button>
-                  </form>
+                  </div>
                 );
               } else {
                 return null;
               }
             } else {
               return (
-                <form key={Math.random()}>
+                <div key={Math.random()} className="roomCard">
                   <img
                     src={
                       room.images[0].thumbNailUrl
@@ -138,6 +189,7 @@ export default function HotelDisplay({
                         : null
                     }
                     alt="roomImg"
+                    className="roomImg"
                   ></img>
                   <br />
                   Description: {room.roomDisplayName} <br /> Price Per Night: $
@@ -160,7 +212,7 @@ export default function HotelDisplay({
                   >
                     Book Room
                   </button>
-                </form>
+                </div>
               );
             }
           })}
@@ -172,17 +224,28 @@ export default function HotelDisplay({
   let history = useHistory();
 
   return (
-    <div>
-      {toggleLoading ? displayData(booking) : <h1>LOADING...</h1>}
+    <div className="hotelTv">
+      <Header />
+      <div className="hotelScreen">
+        {toggleLoading ? (
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              history.push("/hotellist");
+            }}
+            className="backBtn"
+          >
+            Back
+          </button>
+        ) : null}
 
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          history.push("/hotellist");
-        }}
-      >
-        Back
-      </button>
+        {toggleLoading ? (
+          displayData(booking)
+        ) : (
+          <h1 className="loading">LOADING...</h1>
+        )}
+      </div>
+      <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>
   );
 }

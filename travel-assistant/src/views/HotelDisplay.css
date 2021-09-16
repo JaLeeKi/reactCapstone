@@ -1,0 +1,83 @@
+.hotelTv {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(222, 184, 135);
+  border: 0.5em solid black;
+  margin: 1em;
+  padding: 1em 0em 5em 2em;
+  flex-direction: row;
+  height: 49em;
+  border-radius: 2.5%;
+  box-shadow: black 0.5em 0.5em 1em;
+  position: relative;
+  z-index: 2;
+}
+
+.hotelScreen {
+  display: flex;
+  justify-content: center;
+  border: 0.25em solid black;
+  background-color: rgb(95, 158, 160);
+  width: 90em;
+  margin-left: 21em;
+  border-radius: 2.5%;
+  position: relative;
+  z-index: 4;
+}
+
+.loading {
+  margin-top: 10em;
+  font-size: xx-large;
+}
+
+.backBtn {
+  background-color: transparent;
+  border: transparent;
+  border-radius: 5%;
+  border-right: solid rgb(37, 78, 80) 0.25em;
+  margin-right: 0.25em;
+  position: relative;
+  z-index: 1;
+}
+
+.backBtn:hover {
+  background-color: rgb(37, 78, 80);
+}
+
+.hotelRoom {
+  margin-top: 0.25em;
+  display: grid;
+  align-items: center;
+  margin-left: 0.5em;
+  margin-top: 0.5em;
+  max-height: 47.5em;
+  overflow: scroll;
+  position: relative;
+  z-index: 5;
+}
+
+.roomCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 4;
+  width: 100em;
+  height: 15em;
+  margin-bottom: 0.25em;
+  margin-left: 2em;
+  font-size: small;
+  border-radius: 5%;
+  margin-right: 0.25em;
+}
+
+.roomImgs {
+  display: flex;
+  flex-direction: row;
+}
+
+.roomImg {
+  margin-left: 3.75em;
+  border-radius: 5%;
+  width: 8em;
+  height: 5em;
+}

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import _ from "lodash";
+import Header from "./Header";
+import "./CarRental.css";
 
 export default function CarRental({
   apiKey,
@@ -105,20 +107,24 @@ export default function CarRental({
   let history = useHistory();
 
   return (
-    <div>
-      <h1>Car Rental</h1>
-      <div>
-        {toggleLoading ? <ul>{displayRentalInfo}</ul> : <h1>LOADING...</h1>}
+    <div className="hotelTv">
+      <Header />
+      <div className="hotelScreen">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            //SET TOTAL BACK
+            history.push("/airports");
+          }}
+          className="backBtn"
+        >
+          Back
+        </button>
+        <div>
+          {toggleLoading ? <ul>{displayRentalInfo}</ul> : <h1>LOADING...</h1>}
+        </div>
       </div>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          //SET TOTAL BACK
-          history.push("/airports");
-        }}
-      >
-        Back
-      </button>
+      <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>
   );
 }

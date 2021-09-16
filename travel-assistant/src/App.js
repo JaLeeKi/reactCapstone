@@ -12,7 +12,7 @@ import CarRental from "./views/CarRental";
 import RentalDisplay from "./views/RentalDisplay";
 import Final from "./views/Final";
 import HotelDisplay from "./views/HotelDisplay";
-import Total from "./views/Total";
+// import Total from "./views/Total";
 
 export default function App() {
   const [travelFrom, setTravelFrom] = useState("");
@@ -112,7 +112,7 @@ export default function App() {
               totalObj={totalObj}
               setTotalObj={setTotalObj}
             />
-            <Total className="total" total={total} />
+            {/* <Total className="total" total={total} /> */}
           </Route>
           <Route exact path="/carrental">
             {/* <Header className="App-header" /> */}
@@ -133,7 +133,7 @@ export default function App() {
               setRentalName={setRentalName}
               totalObj={totalObj}
             />
-            <Total className="total" total={total} />
+            {/* <Total className="total" total={total} /> */}
           </Route>
           <Route exact path="/rentaldisplay">
             {/* <Header className="App-header" /> */}
@@ -154,7 +154,7 @@ export default function App() {
               totalObj={totalObj}
               setTotalObj={setTotalObj}
             />
-            <Total className="total" total={total} />
+            {/* <Total className="total" total={total} /> */}
           </Route>
           <Route exact path="/final">
             {/* <Header className="App-header" /> */}
@@ -165,7 +165,7 @@ export default function App() {
               totalObj={totalObj}
               setTotalObj={setTotalObj}
             />
-            <Total className="total" total={total} />
+            {/* <Total className="total" total={total} /> */}
           </Route>
         </Switch>
       </div>

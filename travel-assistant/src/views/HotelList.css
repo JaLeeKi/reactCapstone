@@ -19,7 +19,7 @@
   border: 0.25em solid black;
   background-color: cadetblue;
   width: 90em;
-  margin: 0em 0em 0em 21em;
+  margin-left: 21em;
   border-radius: 2.5%;
   position: relative;
   z-index: 3;
@@ -32,31 +32,44 @@
 
 .hotelCard {
   display: flex;
-  flex-direction: row;
-  z-index: 5;
-  /* width: 10em;
-  height: 10em; */
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 4;
+  width: 20em;
+  height: 15em;
+  margin-bottom: 0.25em;
+  font-size: small;
+  border-radius: 5%;
+  margin-right: 0.25em;
+}
+
+.hotelImg {
+  margin-left: 3.75em;
+  border-radius: 5%;
+  width: 11em;
+  height: 6em;
+}
+
+.hotelName {
+  margin-top: 0em;
+  font-size: large;
+}
+
+.hotelRating {
+  margin-top: 0em;
 }
 
 .hotelList {
-  display: flex;
-  flex-direction: row;
+  margin-top: 0.25em;
+  display: grid;
+  align-items: center;
+  grid-auto-flow: row;
+  grid-auto-rows: 12.5em;
+  grid-template-columns: unset;
+  grid-template-rows: unset;
+  max-height: 47.5em;
+  overflow: scroll;
+  grid-template-columns: repeat(5, fit-content(1em));
   position: relative;
-  z-index: 4;
-  /* width: 10em;
-  height: 10em; */
-}
-
-.tvBrand {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  position: absolute;
-  height: 8.17em;
-  font-family: "Times New Roman", Times, sans-serif;
-  font-size: 6em;
-  color: rgb(179, 137, 84);
-  transform: scale(1.75, 1);
-  padding-left: 2em;
-  z-index: 2;
+  z-index: 5;
 }

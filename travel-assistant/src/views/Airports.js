@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
 import _ from "lodash";
+import Header from "./Header";
+import Total from "./Total";
+import "./Airports.css";
 
 // import { response } from "express";
 
@@ -170,9 +173,19 @@ export default function Airports({
   };
 
   return (
-    <div>
-      <div>
-        <h1>Flights</h1>
+    <div className="hotelTv">
+      <Header />
+      <div className="hotelScreen">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setTotal(total / totalNights);
+            history.push("/hoteldisplay");
+          }}
+          className="backBtn"
+        >
+          Back
+        </button>
         {toggleLoading ? (
           displayFlights(allFlightData)
         ) : (
@@ -181,16 +194,9 @@ export default function Airports({
             <p>(This can sometimes take a second)</p>
           </div>
         )}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setTotal(total / totalNights);
-            history.push("/hoteldisplay");
-          }}
-        >
-          Back
-        </button>
+        <Total />
       </div>
+      <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>
   );
 }
