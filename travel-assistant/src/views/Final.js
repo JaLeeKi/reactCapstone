@@ -7,7 +7,7 @@ export default function Final({ totalObj }) {
     <div className="hotelTv">
       <Header />
       <div className="hotelScreen">
-        <div key={Math.random()}>
+        <div key={Math.random()} className="totalInfo">
           <h3>Hotel:</h3>
           <img src={totalObj[0].hotelImg} alt="hotelImg" />
           <br />
