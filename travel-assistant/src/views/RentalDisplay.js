@@ -31,7 +31,6 @@ export default function RentalDisplay({
   combArr.length = 75;
 
   const displayCars = (combArr) => {
-    console.log("rentalINFO: ", combArr);
     return (
       <div>
         {combArr.map((car, i) => {
@@ -73,7 +72,7 @@ export default function RentalDisplay({
                     setTotalObj([
                       ...totalObj,
                       {
-                        rentalImg: car.vehicleInfo.images.SIZE134X72,
+                        rentalImg: car.vehicleInfo.images.SIZE268X144,
                         rentalName: car.vehicleInfo.vehicleExample,
                         //   rentalSeats: car.vehicleInfo.peopleCapacity,
                         rentalPrice: car.rates.USD.basePrices.TOTAL,
@@ -115,7 +114,7 @@ export default function RentalDisplay({
           <h1 className="carRentalName">{rentalName}</h1>
           {displayCars(arrdObj)}
         </div>
-        <Total />
+        <Total total={total} />
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>

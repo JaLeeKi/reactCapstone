@@ -82,7 +82,6 @@ export default function HotelList({
 
   // function hotelSelect(e) {
   //   e.preventDefault();
-  //   console.log("HotelList:e.target1", e.target.attributes);
   //   if (e.target.attributes[1].value) {
   //     // setTimeout(() => {
   //       setHotelId(e.target.attributes[1].value);
@@ -98,16 +97,20 @@ export default function HotelList({
 
   const displayData = hotels.map((hotel) => {
     if (hotel.hotelId) {
-      console.log("HotelList:hotel", hotel);
       return (
         <div key={hotel.hotelId}>
           <button
             className="hotelCard"
-            onMouseEnter={(e) => {
+            onClick={(e) => {
+              e.preventDefault();
               setHotelId(e.target.attributes[1].value);
-            }}
-            onClick={() => {
-              history.push("/hoteldisplay");
+              if (hotelId) {
+                history.push("/hoteldisplay");
+              } else {
+                setTimeout(() => {
+                  history.push("/hoteldisplay");
+                }, 2500);
+              }
             }}
             hotelid={hotel.hotelId}
           >

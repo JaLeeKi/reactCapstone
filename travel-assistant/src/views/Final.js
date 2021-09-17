@@ -3,7 +3,7 @@ import Header from "./Header";
 import Total from "./Total";
 import "./Final.css";
 
-export default function Final({ totalObj }) {
+export default function Final({ totalObj, total }) {
   return (
     <div className="hotelTv">
       <Header />
@@ -38,7 +38,7 @@ export default function Final({ totalObj }) {
             </h2>
           </div>
         </div>
-        <Total />
+        <Total total={total} />
       </div>
     </div>
   );

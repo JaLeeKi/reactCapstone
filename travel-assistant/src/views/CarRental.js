@@ -19,6 +19,7 @@ export default function CarRental({
   rentalName,
   setRentalName,
   totalObj,
+  total,
   // rentalImg,
   // setRentalImg,
 }) {
@@ -80,13 +81,11 @@ export default function CarRental({
   const lodashArr = _.merge(arrdObj, arrdObj2);
 
   const displayRentalInfo = lodashArr.map((company) => {
-    console.log("COMPANY: ", company);
     // setRentalImg({
     //   imageSrc: company.images.SIZE48X22,
     //   imageAlt: "rentalImg",
     // });
     if (company.address) {
-      console.log("COMPANY: ", company);
       return (
         <div key={Math.random()} className="rentalData">
           <img
@@ -106,7 +105,13 @@ export default function CarRental({
             onClick={(e) => {
               e.preventDefault();
               setRentalName(company.partnerName);
-              history.push("/rentaldisplay");
+              if (rentalName) {
+                history.push("/rentaldisplay");
+              } else {
+                setTimeout(() => {
+                  history.push("/rentaldisplay");
+                }, 2500);
+              }
             }}
           >
             View Inventory
@@ -141,7 +146,7 @@ export default function CarRental({
             <h1 className="loading">LOADING...</h1>
           )}
         </div>
-        <Total />
+        <Total total={total} />
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>

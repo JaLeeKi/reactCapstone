@@ -32,7 +32,6 @@ export default function Airports({
   const [toggleLoading, setToggleLoading] = useState(false);
 
   useEffect(() => {
-    console.log("TOTAL: ", total);
     const options = {
       method: "GET",
       url: "https://priceline-com-provider.p.rapidapi.com/v1/flights/locations",
@@ -105,9 +104,9 @@ export default function Airports({
         .request(optionsThree)
         .then(function (response) {
           setAllFlightData(response.data);
-          setTimeout(() => {
+          if (allFlightData) {
             setToggleLoading(true);
-          }, 1500);
+          }
         })
         .catch(function (error) {
           console.error(error);
@@ -116,6 +115,8 @@ export default function Airports({
   }, [toStateCode, fromStateCode]);
 
   let history = useHistory();
+
+  // console.log("allFlightData: ", allFlightData);
 
   const displayFlights = (allFlightData) => {
     let lodashArr = _.merge(
@@ -184,7 +185,13 @@ export default function Airports({
           onClick={(e) => {
             e.preventDefault();
             setTotal(total / totalNights);
-            history.push("/hoteldisplay");
+            if (total) {
+              history.push("/hoteldisplay");
+            } else {
+              setTimeout(() => {
+                history.push("/hoteldisplay");
+              }, 2500);
+            }
           }}
           className="backBtn"
         >
@@ -199,7 +206,7 @@ export default function Airports({
               <p>(This can sometimes take a second)</p>
             </div>
           )}
-          <Total />
+          <Total total={total} />
         </div>
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
