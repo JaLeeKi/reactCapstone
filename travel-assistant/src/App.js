@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./Index.css";
 
-// import Header from "./views/Header";
 import LocationForm from "./views/LocationForm";
 import HotelList from "./views/HotelList";
 import SignIn from "./views/SignIn";
@@ -12,7 +11,6 @@ import CarRental from "./views/CarRental";
 import RentalDisplay from "./views/RentalDisplay";
 import Final from "./views/Final";
 import HotelDisplay from "./views/HotelDisplay";
-// import Total from "./views/Total";
 
 export default function App() {
   const [travelFrom, setTravelFrom] = useState("");
@@ -24,10 +22,13 @@ export default function App() {
   const [endDate, setEndDate] = useState("YYYY-MM-DD");
   const [cityId, setCityId] = useState("");
   const [hotelId, setHotelId] = useState("");
+  const [hotelName, setHotelName] = useState("");
   const [total, setTotal] = useState("");
   const [totalNights, setTotalNights] = useState(0);
+  const [flightPrice, setFlightPrice] = useState("");
   const [rentalInfo, setRentalInfo] = useState({});
   const [rentalName, setRentalName] = useState("");
+  const [rentalSeats, setRentalSeats] = useState("");
   // const [rentalImg, setRentalImg] = useState({
   //   imageSrc: "",
   //   imageAlt: "",
@@ -40,13 +41,9 @@ export default function App() {
       <div className="background">
         <Switch>
           <Route exact path="/">
-            {/* <Header className="App-header" /> */}
             <LocationForm
-              travelTo={travelTo}
               setTravelTo={setTravelTo}
-              travelFrom={travelFrom}
               setTravelFrom={setTravelFrom}
-              guests={guests}
               setGuests={setGuests}
               startDate={startDate}
               setStartDate={setStartDate}
@@ -56,29 +53,23 @@ export default function App() {
               setRegionTo={setRegionTo}
               regionFrom={regionFrom}
               setRegionFrom={setRegionFrom}
-              totalNights={totalNights}
               setTotalNights={setTotalNights}
             />
           </Route>
           <Route exact path="/hotellist">
-            {/* <Header className="App-header" /> */}
             <HotelList
               travelTo={travelTo}
               regionTo={regionTo}
               startDate={startDate}
               endDate={endDate}
-              guests={guests}
               cityId={cityId}
               setCityId={setCityId}
               apiKey={apiKey}
-              total={total}
-              setTotal={setTotal}
               hotelId={hotelId}
               setHotelId={setHotelId}
             />
           </Route>
           <Route exact path="/hoteldisplay">
-            {/* <Header className="App-header" /> */}
             <HotelDisplay
               apiKey={apiKey}
               hotelId={hotelId}
@@ -89,20 +80,17 @@ export default function App() {
               totalNights={totalNights}
               totalObj={totalObj}
               setTotalObj={setTotalObj}
+              setHotelName={setHotelName}
             />
           </Route>
           <Route exact path="/signin">
-            {/* <Header className="App-header" /> */}
             <SignIn />
           </Route>
           <Route exact path="/signup">
-            {/* <Header className="App-header" /> */}
             <SignUp />
           </Route>
           <Route exact path="/airports">
-            {/* <Header className="App-header" /> */}
             <Airports
-              totalNights={totalNights}
               total={total}
               setTotal={setTotal}
               apiKey={apiKey}
@@ -115,11 +103,10 @@ export default function App() {
               endDate={endDate}
               totalObj={totalObj}
               setTotalObj={setTotalObj}
+              setFlightPrice={setFlightPrice}
             />
-            {/* <Total className="total" total={total} /> */}
           </Route>
           <Route exact path="/carrental">
-            {/* <Header className="App-header" /> */}
             <CarRental
               total={total}
               setTotal={setTotal}
@@ -127,33 +114,23 @@ export default function App() {
               travelTo={travelTo}
               travelFrom={setTravelFrom}
               regionTo={regionTo}
-              regionFrom={regionFrom}
-              guests={guests}
               startDate={startDate}
               endDate={endDate}
               rentalInfo={rentalInfo}
               setRentalInfo={setRentalInfo}
               rentalName={rentalName}
               setRentalName={setRentalName}
+              flightPrice={flightPrice}
+              guests={guests}
               // rentalImg={rentalImg}
               // setRentalImg={setRentalImg}
-              totalObj={totalObj}
             />
-            {/* <Total className="total" total={total} /> */}
           </Route>
           <Route exact path="/rentaldisplay">
-            {/* <Header className="App-header" /> */}
             <RentalDisplay
               total={total}
               setTotal={setTotal}
-              apiKey={apiKey}
-              travelTo={travelTo}
-              travelFrom={setTravelFrom}
-              regionTo={regionTo}
-              regionFrom={regionFrom}
               guests={guests}
-              startDate={startDate}
-              endDate={endDate}
               rentalInfo={rentalInfo}
               rentalName={rentalName}
               setRentalName={setRentalName}
@@ -161,19 +138,21 @@ export default function App() {
               // setRentalImg={setRentalImg}
               totalObj={totalObj}
               setTotalObj={setTotalObj}
+              setRentalSeats={setRentalSeats}
             />
-            {/* <Total className="total" total={total} /> */}
           </Route>
           <Route exact path="/final">
-            {/* <Header className="App-header" /> */}
             <Final
               total={total}
               setTotal={setTotal}
               apiKey={apiKey}
+              hotelName={hotelName}
+              guests={guests}
               totalObj={totalObj}
               setTotalObj={setTotalObj}
+              totalNights={totalNights}
+              rentalSeats={rentalSeats}
             />
-            {/* <Total className="total" total={total} /> */}
           </Route>
         </Switch>
       </div>

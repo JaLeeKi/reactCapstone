@@ -13,7 +13,7 @@
 }
 
 .carTotal {
-  min-width: 86em;
+  min-width: 84.75em;
   display: grid;
   /* grid-auto-flow: column; */
   max-height: 47.5em;

@@ -4,13 +4,12 @@
   justify-content: space-evenly;
   align-items: center;
   text-align: center;
-  width: 65em;
-  height: 40em;
-  /* font-size: small; */
+  width: 70em;
+  height: 35em;
+  font-size: small;
   border-radius: 3%;
-  border-bottom: 0.2em solid black;
-  border-right: 0.15em solid black;
-  margin-right: 16.5em;
+  border-bottom: 0.25em solid black;
+  border-right: 0.25em solid black;
 }
 
 .rentalImg {
@@ -39,9 +38,8 @@
 }
 
 .carRentalTotal {
-  min-width: 86em;
+  min-width: 84.75em;
   display: grid;
-  /* grid-auto-flow: column; */
   max-height: 47.5em;
   overflow-y: scroll;
   margin-top: 0.5em;

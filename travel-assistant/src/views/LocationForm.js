@@ -5,11 +5,8 @@ import "./LocationForm.css";
 import Header from "./Header";
 
 export default function LocationForm({
-  travelTo,
   setTravelTo,
-  travelFrom,
   setTravelFrom,
-  guests,
   setGuests,
   startDate,
   setStartDate,
@@ -19,7 +16,6 @@ export default function LocationForm({
   setRegionTo,
   regionFrom,
   setRegionFrom,
-  totalNights,
   setTotalNights,
 }) {
   let history = useHistory();

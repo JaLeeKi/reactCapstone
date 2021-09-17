@@ -19,9 +19,9 @@ export default function Airports({
   endDate,
   setTotal,
   total,
-  totalNights,
   totalObj,
   setTotalObj,
+  setFlightPrice,
 }) {
   // const [allAirportData, setAllAirportData] = useState([]);
   const [fromCityCode, setFromCityCode] = useState("");
@@ -129,6 +129,7 @@ export default function Airports({
       <div>
         {lodashArr.map((arrsVal) => {
           if (arrsVal.lowestTotalFare) {
+            setFlightPrice(arrsVal.lowestTotalFare.amount);
             if (arrsVal.name && arrsVal.phoneNumber && arrsVal.websiteUrl) {
               return (
                 <div key={arrsVal.code} className="flightData">
@@ -160,7 +161,7 @@ export default function Airports({
                       } else {
                         setTimeout(() => {
                           history.push("/carrental");
-                        }, 6000);
+                        }, 5000);
                       }
                     }}
                   >
@@ -180,19 +181,19 @@ export default function Airports({
   };
 
   return (
-    <div className="hotelTv">
+    <div className="tv">
       <Header />
-      <div className="hotelScreen">
+      <div className="screen">
         <button
           onClick={(e) => {
             e.preventDefault();
-            setTotal(total / totalNights);
-            if (total) {
+            setTotal(0);
+            if (total === 0) {
               history.push("/hoteldisplay");
             } else {
               setTimeout(() => {
                 history.push("/hoteldisplay");
-              }, 2500);
+              }, 500);
             }
           }}
           className="backBtn"
@@ -204,8 +205,8 @@ export default function Airports({
             displayFlights(allFlightData)
           ) : (
             <div>
-              <h1 className="loading">LOADING...</h1>
-              <p>(This can sometimes take a second)</p>
+              <h1 className="newLoading">LOADING...</h1>
+              <p className="loadingWarn">(This can sometimes take a second)</p>
             </div>
           )}
           <Total total={total} />

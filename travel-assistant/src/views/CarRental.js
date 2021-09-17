@@ -10,16 +10,16 @@ export default function CarRental({
   apiKey,
   travelTo,
   regionTo,
-  regionFrom,
-  guests,
   startDate,
   endDate,
   rentalInfo,
   setRentalInfo,
   rentalName,
   setRentalName,
-  totalObj,
   total,
+  guests,
+  flightPrice,
+  setTotal,
   // rentalImg,
   // setRentalImg,
 }) {
@@ -85,7 +85,7 @@ export default function CarRental({
     //   imageSrc: company.images.SIZE48X22,
     //   imageAlt: "rentalImg",
     // });
-    if (company.address) {
+    if (company.address && company.images.HEIGHT36) {
       return (
         <div key={Math.random()} className="rentalData">
           <img
@@ -126,14 +126,17 @@ export default function CarRental({
   let history = useHistory();
 
   return (
-    <div className="hotelTv">
+    <div className="tv">
       <Header />
-      <div className="hotelScreen">
+      <div className="screen">
         <button
           onClick={(e) => {
             e.preventDefault();
-            //SET TOTAL BACK
-            history.push("/airports");
+            setTotal(total - flightPrice * guests);
+
+            setTimeout(() => {
+              history.push("/airports");
+            }, 250);
           }}
           className="backBtn"
         >
@@ -143,7 +146,7 @@ export default function CarRental({
           {toggleLoading ? (
             displayRentalInfo
           ) : (
-            <h1 className="loading">LOADING...</h1>
+            <h1 className="newLoading">LOADING...</h1>
           )}
         </div>
         <Total total={total} />

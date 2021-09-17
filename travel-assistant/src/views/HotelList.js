@@ -14,9 +14,6 @@ export default function HotelList({
   hotelId,
   setHotelId,
   apiKey,
-  total,
-  guests,
-  setTotal,
 }) {
   const [hotels, setHotels] = useState([]);
   const [toggleLoading, setToggleLoading] = useState(false);
@@ -70,7 +67,13 @@ export default function HotelList({
         .request(optionsTwo)
         .then(function (response) {
           setHotels(response.data.hotels);
-          setToggleLoading(true);
+          if (hotels) {
+            setToggleLoading(true);
+          } else {
+            setTimeout(() => {
+              setToggleLoading(true);
+            }, 3000);
+          }
         })
         .catch(function (error) {
           console.error(error);
@@ -109,7 +112,7 @@ export default function HotelList({
               } else {
                 setTimeout(() => {
                   history.push("/hoteldisplay");
-                }, 3000);
+                }, 3500);
               }
             }}
             hotelid={hotel.hotelId}

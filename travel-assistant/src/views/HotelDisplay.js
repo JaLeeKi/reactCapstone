@@ -14,6 +14,7 @@ export default function HotelDisplay({
   totalObj,
   setTotalObj,
   total,
+  setHotelName,
 }) {
   const [booking, setBooking] = useState({});
   const [toggleLoading, setToggleLoading] = useState(false);
@@ -52,6 +53,7 @@ export default function HotelDisplay({
   let prevRoomIdArr = [];
 
   const displayData = (bookingData) => {
+    setHotelName(bookingData.name);
     if (bookingData.images[5] && bookingData.images[10]) {
       return (
         <div className="hotelRoom">
@@ -218,9 +220,10 @@ export default function HotelDisplay({
   let history = useHistory();
 
   return (
-    <div className="hotelTv">
+    <div className="tv">
       <Header />
-      <div className="hotelScreen">
+      <div className="screen">
+        {/* <div className="hotelRoomData"> */}
         {toggleLoading ? (
           <button
             onClick={(e) => {
@@ -235,8 +238,9 @@ export default function HotelDisplay({
         {toggleLoading ? (
           displayData(booking)
         ) : (
-          <h1 className="loading">LOADING...</h1>
+          <h1 className="newLoading">LOADING...</h1>
         )}
+        {/* </div> */}
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>

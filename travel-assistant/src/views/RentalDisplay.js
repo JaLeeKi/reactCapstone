@@ -8,18 +8,12 @@ import "./RentalDisplay.css";
 export default function RentalDisplay({
   total,
   setTotal,
-  apiKey,
-  travelTo,
-  travelFrom,
-  regionTo,
-  regionFrom,
   guests,
-  startDate,
-  endDate,
   rentalInfo,
   rentalName,
   totalObj,
   setTotalObj,
+  setRentalSeats,
   // rentalImg,
   // setRentalImg,
 }) {
@@ -33,7 +27,7 @@ export default function RentalDisplay({
   const displayCars = (combArr) => {
     return (
       <div>
-        {combArr.map((car, i) => {
+        {combArr.map((car) => {
           if (
             car.vehicleInfo.vehicleExample &&
             car.vehicleInfo.images.SIZE268X144 &&
@@ -79,9 +73,10 @@ export default function RentalDisplay({
                       },
                     ]);
                     setTotal(total + rentalTotal);
-                    if (totalObj && total) {
+                    setRentalSeats(car.vehicleInfo.peopleCapacity);
+                    setTimeout(() => {
                       history.push("/final");
-                    }
+                    }, 1750);
                   }}
                 >
                   Book Rental
@@ -97,9 +92,9 @@ export default function RentalDisplay({
   };
 
   return (
-    <div className="hotelTv">
+    <div className="tv">
       <Header />
-      <div className="hotelScreen">
+      <div className="screen">
         <button
           onClick={(e) => {
             e.preventDefault();
