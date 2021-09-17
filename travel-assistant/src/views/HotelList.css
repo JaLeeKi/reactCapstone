@@ -69,7 +69,7 @@
   grid-template-columns: unset;
   grid-template-rows: unset;
   max-height: 47.5em;
-  overflow: scroll;
+  overflow-y: scroll;
   grid-template-columns: repeat(5, fit-content(1em));
   position: relative;
   z-index: 5;

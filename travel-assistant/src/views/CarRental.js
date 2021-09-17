@@ -86,6 +86,7 @@ export default function CarRental({
     //   imageAlt: "rentalImg",
     // });
     if (company.address) {
+      console.log("COMPANY: ", company);
       return (
         <div key={Math.random()} className="rentalData">
           <img
@@ -133,14 +134,14 @@ export default function CarRental({
         >
           Back
         </button>
-        <div className="rentalTotal">
+        <div className="carRentalTotal">
           {toggleLoading ? (
-            <div>{displayRentalInfo}</div>
+            displayRentalInfo
           ) : (
             <h1 className="loading">LOADING...</h1>
           )}
-          <Total />
         </div>
+        <Total />
       </div>
       <h3 className="tvBrand">Travel-O-Matic</h3>
     </div>

@@ -113,7 +113,7 @@ export default function RentalDisplay({
         <div className="carTotal">
           {/* <img src={rentalImg} alt="rentalImg" /> */}
           <h1 className="carRentalName">{rentalName}</h1>
-          <div>{displayCars(arrdObj)}</div>
+          {displayCars(arrdObj)}
         </div>
         <Total />
       </div>

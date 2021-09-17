@@ -10,21 +10,32 @@ export default function Final({ totalObj }) {
       <div className="hotelScreen">
         <div key={Math.random()} className="totalInfo">
           <div className="hotelTotal">
-            <h3>Hotel:</h3>
-            <img src={totalObj[0].hotelImg} alt="hotelImg" />
-            <h4>{totalObj[0].hotelName}</h4>
-            Price Per Night: ${totalObj[0].hotelPrice} <br />
+            <img
+              src={totalObj[0].hotelImg}
+              alt="hotelImg"
+              className="hotelTotalImg"
+            />
+            <h1 className="hotelTotalName">{totalObj[0].hotelName}</h1>
+            <h2 className="hotelTotalPrice">
+              Price Per Night: ${totalObj[0].hotelPrice}
+            </h2>
           </div>
           <div className="flightTotal">
-            <h3>Flight:</h3>
-            <h4>{totalObj[1].flightName}</h4> <br />
-            Price Per Ticket: ${totalObj[1].flightPrice}
+            <h1 className="flightTotalName">{totalObj[1].flightName}</h1>
+            <h2 className="flightTotalPrice">
+              Price Per Ticket: ${totalObj[1].flightPrice}
+            </h2>
           </div>
           <div className="rentalTotal">
-            <h3>Rental:</h3>
-            <img src={totalObj[2].rentalImg} alt="rentalImg" /> <br />
-            <h4>{totalObj[2].rentalName}</h4>
-            Total Price: ${totalObj[2].rentalPrice}
+            <img
+              src={totalObj[2].rentalImg}
+              alt="rentalImg"
+              className="rentalTotalImg"
+            />
+            <h1 className="rentalTotalName">{totalObj[2].rentalName}</h1>
+            <h2 className="rentalTotalPrice">
+              Total Price: ${totalObj[2].rentalPrice}
+            </h2>
           </div>
         </div>
         <Total />

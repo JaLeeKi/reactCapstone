@@ -6,10 +6,11 @@
   text-align: center;
   width: 70em;
   height: 40em;
-  font-size: small;
+  /* font-size: small; */
   border-radius: 3%;
-  border-bottom: 0.25em solid black;
-  border-right: 0.25em solid black;
+  border-bottom: 0.2em solid black;
+  border-right: 0.15em solid black;
+  margin-right: 16.5em;
 }
 
 .rentalImg {
@@ -37,12 +38,11 @@
 .rentalSubmit {
 }
 
-.rentalTotal {
+.carRentalTotal {
   min-width: 86em;
   display: grid;
   /* grid-auto-flow: column; */
   max-height: 47.5em;
-  overflow: scroll;
+  overflow-y: scroll;
   margin-top: 0.5em;
-  border: 0.25em solid red;
 }

@@ -41,10 +41,11 @@
   display: grid;
   align-items: center;
   margin-left: 0.5em;
+  max-width: 83em;
   margin-top: 0.5em;
   margin-right: 0.5em;
   max-height: 47.5em;
-  overflow: scroll;
+  overflow-y: scroll;
   position: relative;
   z-index: 5;
 }
