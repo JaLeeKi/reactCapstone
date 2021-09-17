@@ -109,7 +109,7 @@ export default function HotelList({
               } else {
                 setTimeout(() => {
                   history.push("/hoteldisplay");
-                }, 2500);
+                }, 3000);
               }
             }}
             hotelid={hotel.hotelId}

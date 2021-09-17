@@ -63,11 +63,11 @@ export default function RentalDisplay({
                 <button
                   type="submit"
                   className="carSubmit"
-                  onMouseEnter={(e) => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     const rentalTotal = parseInt(
                       car.rates.USD.basePrices.TOTAL
                     );
-                    e.preventDefault();
 
                     setTotalObj([
                       ...totalObj,
@@ -79,9 +79,9 @@ export default function RentalDisplay({
                       },
                     ]);
                     setTotal(total + rentalTotal);
-                  }}
-                  onClick={(e) => {
-                    history.push("/final");
+                    if (totalObj && total) {
+                      history.push("/final");
+                    }
                   }}
                 >
                   Book Rental

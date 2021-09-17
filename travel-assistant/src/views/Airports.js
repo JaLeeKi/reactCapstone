@@ -143,23 +143,25 @@ export default function Airports({
                     type="submit"
                     price={arrsVal.lowestTotalFare.amount}
                     className="flightSubmit"
-                    onMouseEnter={() => {
-                      setTotal(total + guests * arrsVal.lowestTotalFare.amount);
-                      setTimeout(() => {
-                        setTotalObj([
-                          ...totalObj,
-                          {
-                            img: null,
-                            flightName: arrsVal.name,
-                            flightPrice: arrsVal.lowestTotalFare.amount,
-                          },
-                        ]);
-                      }, 500);
-                    }}
                     onClick={(e) => {
                       e.preventDefault();
+                      setTotal(total + guests * arrsVal.lowestTotalFare.amount);
+                      setTotalObj([
+                        ...totalObj,
+                        {
+                          img: null,
+                          flightName: arrsVal.name,
+                          flightPrice: arrsVal.lowestTotalFare.amount,
+                        },
+                      ]);
 
-                      history.push("/carrental");
+                      if (total && totalObj) {
+                        history.push("/carrental");
+                      } else {
+                        setTimeout(() => {
+                          history.push("/carrental");
+                        }, 6000);
+                      }
                     }}
                   >
                     Book Flight
